@@ -1,3 +1,3 @@
 # Live Pixels
 
-Drawin images by "Live Pixels"
+Drawing images by "Live Pixels"
