@@ -1,0 +1,4 @@
+/node_modules
+
+# name.~docx, name.~vsdx etc.
+/**/*.~*
