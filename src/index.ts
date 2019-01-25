@@ -1,3 +1,5 @@
+import './index.sass';
+
 class Hellower {
    constructor(private name:string) {
 

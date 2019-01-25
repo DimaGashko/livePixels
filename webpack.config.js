@@ -1,10 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const plugins = {
-   HtmlPlugin: require('html-webpack-plugin'),
-   CleanPlugin: require('clean-webpack-plugin'),
-}
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
    mode: 'development',
@@ -19,27 +18,37 @@ module.exports = {
    module: {
       rules: [{
          test: /\.tsx?$/,
-         use: [
-            {
-               loader: 'ts-loader',
-               options: {
-                  transpileOnly: true,
-                  experimentalWatchApi: true,
-               },
+         use: [{
+            loader: 'ts-loader',
+            options: {
+               transpileOnly: true,
+               experimentalWatchApi: true,
             },
-         ],
+         }],
          exclude: /node_modules/
       }, {
          test: /\.pug/,
          loaders: ['html-loader', 'pug-html-loader'],
+      }, {
+         test: /\.sass$/,
+         use: [
+            MiniCssExtractPlugin.loader, //'style-loader',
+            'css-loader',
+            {
+               loader: 'sass-loader',
+               options: {
+                  sourceMap: true,
+               }
+            }
+         ]
       }]
    },
    resolve: {
       extensions: ['.tsx', '.ts', '.js']
    },
    plugins: [
-      new plugins.CleanPlugin(['dist']),
-      new plugins.HtmlPlugin({
+      new CleanWebpackPlugin(['dist']),
+      new HtmlWebpackPlugin({
          template: './src/index.pug',
          hash: false,
          minify: {
@@ -47,6 +56,9 @@ module.exports = {
          }
       }),
       new webpack.HashedModuleIdsPlugin(),
+      new MiniCssExtractPlugin({
+         filename: "[name].[contenthash].css",
+      }),
    ],
 
 };
