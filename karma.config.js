@@ -10,9 +10,9 @@ module.exports = function (config) {
          'test/**/*.ts': ['webpack'],
       },
       webpack: {
+         mode: 'development',
          module: webpackConfig.module,
          resolve: webpackConfig.resolve,
-         mode: webpackConfig.mode,
       },
       reporters: ['progress'],
       port: 9876,

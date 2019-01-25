@@ -64,6 +64,7 @@ module.exports = {
       extensions: ['.tsx', '.ts', '.js']
    },
    plugins: [
+      new webpack.NoErrorsPlugin(),
       new CleanWebpackPlugin(['dist']),
       new HtmlWebpackPlugin({
          template: './src/index.pug',
