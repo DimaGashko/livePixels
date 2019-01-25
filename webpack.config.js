@@ -15,7 +15,7 @@ module.exports = {
       path: path.resolve(__dirname, 'dist'),
       publicPath: './',
    },
-   devtool: 'cheap-module-source-map',
+   devtool: 'cheap-inline-module-source-map',
    module: {
       rules: [{
          test: /\.ts$/,
