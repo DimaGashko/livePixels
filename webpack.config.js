@@ -15,9 +15,10 @@ module.exports = {
       path: path.resolve(__dirname, 'dist'),
       publicPath: './',
    },
+   devtool: 'cheap-module-source-map',
    module: {
       rules: [{
-         test: /\.tsx?$/,
+         test: /\.ts$/,
          use: [{
             loader: 'ts-loader',
             options: {
