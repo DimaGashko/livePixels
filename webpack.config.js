@@ -28,6 +28,10 @@ module.exports = {
             },
          ],
          exclude: /node_modules/
+      }, {
+         test: /\.pug/,
+         loaders: ['html-loader', 'pug-html-loader'],
+         options: {}
       }]
    },
    resolve: {
