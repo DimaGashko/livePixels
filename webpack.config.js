@@ -7,6 +7,7 @@ const plugins = {
 }
 
 module.exports = {
+   mode: 'development',
    entry: {
       app: './src/index.ts',
    },
@@ -31,7 +32,6 @@ module.exports = {
       }, {
          test: /\.pug/,
          loaders: ['html-loader', 'pug-html-loader'],
-         options: {}
       }]
    },
    resolve: {
