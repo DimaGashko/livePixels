@@ -1,6 +1,19 @@
 {
-  "devDependencies": {
-    "pug": "^2.0.3",
-    "pug-html-loader": "^1.1.5"
-  }
+   "name": "live-pixels",
+   "version": "1.0.0",
+   "repository": "https://github.com/DimaGashko/livePixels",
+   "author": "DimaGashko <dgashko@mail.ua>",
+   "license": "MIT",
+   "private": true,
+   "sideEffects": false,
+   "scripts": {
+      "start": "webpack-dev-server --open=false --config webpack.dev.js",
+      "build": "webpack --config webpack.config.js",
+      "stats": "webpack --config webpack.prod.js --json --profile > stats.json"
+   },
+   "dependencies": {},
+   "devDependencies": {
+      "pug": "^2.0.3",
+      "pug-html-loader": "^1.1.5"
+   }
 }
