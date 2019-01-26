@@ -68,11 +68,10 @@ module.exports = {
       new CleanWebpackPlugin(['dist']),
       new HtmlWebpackPlugin({
          template: './src/index.pug',
-         hash: false,
          favicon: "./src/img/favicon.png",
-         removeComments: true,
          minify: {
             collapseWhitespace: true,
+            removeComments: true,
          }
       }),
       new webpack.HashedModuleIdsPlugin(),
