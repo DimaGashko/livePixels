@@ -1,4 +1,5 @@
 import './index.sass';
+import './img/test.png';
 
 class Hellower {
    constructor(private name:string) {
