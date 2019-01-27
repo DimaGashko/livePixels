@@ -6,7 +6,7 @@ class Hellower {
    }
 
    public sayHello(): void {
-      console.log(`Hi, my name is ${this.name}`);
+      console.log(`Hi, your name is ${this.name}`);
    }
 }
 
