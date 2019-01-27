@@ -6,6 +6,7 @@ const cssnano = require('cssnano');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 module.exports = {
    mode: 'development',
@@ -85,8 +86,11 @@ module.exports = {
          minify: {
             collapseWhitespace: true,
             removeComments: true,
-         }
+         },
+
+         inlineSource: '.(js|css)$'
       }),
+      new HtmlWebpackInlineSourcePlugin(),
       new webpack.HashedModuleIdsPlugin(),
       new MiniCssExtractPlugin({
          filename: "[name].[contenthash].css",
