@@ -10,8 +10,8 @@ class Hellower {
    }
 }
 
-const hellower1 = new Hellower("Test1");
-const hellower2 = new Hellower("Test2");
+const hellower1 = new Hellower("Test1 - 1");
+const hellower2 = new Hellower("Test2 - 2");
 
 hellower1.sayHello();
 hellower2.sayHello();

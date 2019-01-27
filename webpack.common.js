@@ -4,7 +4,6 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -15,9 +14,8 @@ module.exports = {
    output: {
       filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: './',
+      //publicPath: '/',
    },
-   devtool: 'cheap-inline-module-source-map',
    module: {
       rules: [{
          test: /\.ts$/,
@@ -79,8 +77,6 @@ module.exports = {
       extensions: ['.tsx', '.ts', '.js']
    },
    plugins: [
-      new webpack.NoEmitOnErrorsPlugin(),
-      new CleanWebpackPlugin(['dist']),
       new HtmlWebpackPlugin({
          template: './src/index.pug',
          favicon: "./src/img/favicon.png",

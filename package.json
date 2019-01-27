@@ -8,8 +8,8 @@
    "private": true,
    "sideEffects": false,
    "scripts": {
-      "start": "webpack-dev-server --open=false --config webpack.dev.js",
-      "build": "webpack --config webpack.config.js",
+      "start": "webpack-dev-server --config webpack.dev.js",
+      "build": "webpack --config webpack.prod.js",
       "stats": "webpack --config webpack.prod.js --json --profile > stats.json",
       "test": "karma start karma.config.js"
    },
