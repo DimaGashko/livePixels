@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -41,7 +42,8 @@ module.exports = {
                   plugins: [
                      autoprefixer({
                         browsers: ['last 3 version']
-                     })
+                     }),
+                     cssnano(),
                   ],
                   sourceMap: true
                }
