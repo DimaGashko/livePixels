@@ -45,7 +45,7 @@ describe('Class LiveImg', () => {
 
       it('root', () => { 
          const root: any = liveImg.root;
-         expect(root).instanceOf(HTMLElement);
+         expect(root).instanceOf(Element);
       });
    }); 
 
