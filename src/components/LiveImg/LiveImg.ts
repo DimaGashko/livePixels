@@ -16,19 +16,21 @@ export default class LiveImg {
    private _minHeight: number = 0;
 
    // HTML-контейнер картинки
-   private _root: HTMLElement = null;
+   private _root: Element | null = null;
+
+   private _els: {[name: string]: Element | null} = {};
 
    constructor(config?: LiveImgConfig) {
       if (config) {
          this._useConfig(config);
       }
+
+      this._createHtml();
+      this._getElements();
    }
 
-   public get root(): HTMLElement {
+   public get root(): Element | null {
       return this._root;
-   }
-   public set root(val: HTMLElement) {
-      this._root = val;
    }
 
    public get width(): number {
@@ -49,6 +51,17 @@ export default class LiveImg {
    // (Вызывает перерисовку)
    public set height(val: number) {
       this._setHeight(val);
+   }
+
+   private _createHtml(): void {
+      const tmpContainer = document.createElement('div');
+      tmpContainer.innerHTML = liveImgTemplate;
+
+      this._root = tmpContainer.firstElementChild;
+   }
+
+   private _getElements(): void {
+      this._els.canvas = this._root.querySelector('liveImg__canvas');
    }
 
    /**
