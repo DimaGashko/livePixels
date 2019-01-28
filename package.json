@@ -43,6 +43,7 @@
       "karma-remap-coverage": "^0.1.5",
       "karma-remap-istanbul": "^0.6.0",
       "karma-sinon": "^1.0.5",
+      "karma-spec-reporter": "^0.0.32",
       "karma-typescript": "^3.0.13",
       "karma-typescript-preprocessor2": "^1.2.1",
       "karma-webpack": "^3.0.5",

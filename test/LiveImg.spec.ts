@@ -25,7 +25,7 @@ describe('Class LiveImg', () => {
          const liveImg = new LiveImg({height: 100});
 
          expect(liveImg).instanceof(LiveImg); 
-         expect(liveImg.height).equal(100 * 2);
+         expect(liveImg.height).equal(100);
       });
    
    });
