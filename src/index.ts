@@ -1,17 +1,4 @@
 import './index.sass';
+import LiveImg from './components/LiveImg/LiveImg';
 
-class Hellower {
-   constructor(private name:string) {
-
-   }
-
-   public sayHello(): void {
-      console.log(`Hi, your name is ${this.name}`);
-   }
-}
-
-const hellower1 = new Hellower("Test1 - 1");
-const hellower2 = new Hellower("Test2 - 2");
-
-hellower1.sayHello();
-hellower2.sayHello();
+const liveImg = new LiveImg();
