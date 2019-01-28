@@ -37,6 +37,7 @@
       "karma-sinon": "^1.0.5",
       "karma-typescript-preprocessor2": "^1.2.1",
       "karma-webpack": "^3.0.5",
+      "micro-template": "^0.1.2",
       "mini-css-extract-plugin": "^0.5.0",
       "mocha": "^5.2.0",
       "node-sass": "^4.11.0",

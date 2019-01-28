@@ -1,5 +1,5 @@
-const img = require('./test.png');
-console.log(img);
+import * as myImage from './LiveImgTemplate.pug';
+console.log(myImage);
 
 export interface LiveImgConfig {
    width?: number,
