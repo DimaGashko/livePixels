@@ -5,16 +5,51 @@
 
 declare namespace MicroTemplate {
    interface MicroTemplateStatic {
+      /**
+       * JavaScript templates
+       * 
+       * @param idOrSource if it matches ` /^[\w\-]+$/ `, it's treated as id 
+       * of template. In this case, use `document.getElementById(id).innerHTML` 
+       * to get a source. Otherwise, the first argument is treated as a source
+       * 
+       * @param data template data. If it **not** supplied returns `TmplFunc`, 
+       * otherwise *result of template*
+       */
       template: TemplateStatic,
+
+
       extended: ExtendedStatic
    }
 
    interface TemplateStatic {
-      (id: string, data: any): any;
+      (idOrSource: string, data?: any): string | TmplFunc;
+
+      /**
+       * By default, micro-template uses document.getElementById(id).innerHTML 
+       * to get template source from id. To override this behavior, you can set 
+       * function to template.get()
+       * 
+       * ```JavaScript
+       * template.get = (id) => require('fs')
+       *    .readFileSync(`${id}.tmpl`, 'utf-8');
+       * ```
+       * 
+       * @param id template id
+       * 
+       */
+      get: CustomGetFunction,
+   }
+
+   interface CustomGetFunction { 
+      (id: string): string;
    }
 
    interface ExtendedStatic {
       (id: string, data: any): any;
+   }
+
+   interface TmplFunc {
+      (data: any): string;
    }
 
 }
