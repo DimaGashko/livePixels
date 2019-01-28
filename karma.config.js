@@ -8,7 +8,7 @@ module.exports = function (config) {
       exclude: [],
       preprocessors: {
          'test/**/*.ts': ['webpack'],
-         'src/**/*.ts': ['coverage'],
+         'src/**/*.ts': [],
       },
       webpack: {
          mode: 'development',
@@ -19,7 +19,10 @@ module.exports = function (config) {
          type: 'text',
          file: 'output',
       },
-      reporters: ['mocha', 'coverage'],
+      mochaReporter: {
+         showDiff: true,
+      },
+      reporters: ['mocha'],
       port: 9876,
       colors: true,
       logLevel: config.LOG_INFO,
