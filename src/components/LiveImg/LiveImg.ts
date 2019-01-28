@@ -23,6 +23,8 @@ export default class LiveImg {
       return this._width;
    }
 
+   // Устанавливает ширину картинки
+   // (Вызывает перерисовку)
    public set width(val: number) {
       this._setWidth(val);
    }
@@ -31,6 +33,8 @@ export default class LiveImg {
       return this._height;
    }
 
+   // Устанавливает высоту картинки
+   // (Вызывает перерисовку)
    public set height(val: number) {
       this._setHeight(val);
    }

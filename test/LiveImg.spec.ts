@@ -1,27 +1,27 @@
-import { expect } from "chai";
-import LiveImg from "../src/components/LiveImg/LiveImg";
+import { expect } from 'chai';
+import LiveImg from '../src/components/LiveImg/LiveImg';
 
-describe("class LiveImg", () => {
+describe('Class LiveImg', () => {
 
-   describe("new LiveImg", () => {
+   describe('new LiveImg', () => {
       
-      it(`Default params`, () => {
+      it('Default params', () => {
          expect(new LiveImg()).instanceof(LiveImg);         
       });
 
-      it(`Empty params`, () => {
+      it('Empty params', () => {
          const liveImg = new LiveImg({});
          expect(liveImg).instanceof(LiveImg); 
       });
 
-      it(`Width`, () => {
+      it('Width', () => {
          const liveImg = new LiveImg({width: 100});
 
          expect(liveImg).instanceof(LiveImg); 
          expect(liveImg.width).equal(100);
       });
 
-      it(`Height`, () => {
+      it('Height', () => {
          const liveImg = new LiveImg({height: 100});
 
          expect(liveImg).instanceof(LiveImg); 
@@ -29,5 +29,21 @@ describe("class LiveImg", () => {
       });
    
    });
+ 
+   describe('Gets & Sets', () => { 
+      const liveImg = new LiveImg();
+
+      it('Width', () => {
+         liveImg.width = 500;
+
+         expect(liveImg.width).equal(500);
+      });
+
+      it('Height', () => {
+         liveImg.height = 500;
+
+         expect(liveImg.height).equal(500);
+      });
+   }); 
 
 });

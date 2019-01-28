@@ -2,8 +2,8 @@ import './index.sass';
 import LiveImg from './components/LiveImg/LiveImg';
 
 const liveImg = new LiveImg({
-   width: 600,
-   height: 400,
+   width: 800,
+   height: 600,
 });
-
+ 
 console.log(liveImg.width, liveImg.height);
