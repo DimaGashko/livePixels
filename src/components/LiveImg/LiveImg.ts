@@ -48,7 +48,7 @@ export default class LiveImg {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
    } 
-
+   
    private _setWidth(val: number): void {
       if (val > this._maxWidth) val = this._maxWidth;
       else if (val < this._minWidth) val = this._minWidth;
