@@ -5,10 +5,17 @@ describe("class LiveImg", () => {
 
    describe("new LiveImg", () => {
       
-      it(`With default params`, () => {
-         const liveImg = new LiveImg();
+      it(`Default params`, () => {
+         expect(new LiveImg()).instanceof(LiveImg);         
+      });
 
-         expect(liveImg).instanceof(LiveImg);         
+      it(`Custom params`, () => {
+         const liveImg = new LiveImg({
+            width: 100,
+            height: 100,
+         });
+
+         expect(liveImg).instanceof(LiveImg); 
       });
    
    });

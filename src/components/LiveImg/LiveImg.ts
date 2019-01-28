@@ -1,62 +1,42 @@
+export interface LiveImgConfig {
+   width?: number,
+   height?: number,
+}
+
 export default class LiveImg {
    private _width: number = 300;
    private _height: number = 300;
 
-   private _maxWidth: number = Infinity;
-   private _maxHeight: number = Infinity;
+   private _maxWidth: number = 10000;
+   private _maxHeight: number = 10000;
 
    private _minWidth: number = 0;
    private _minHeight: number = 0;
 
-   constructor() { 
-
+   constructor(config?: LiveImgConfig) { 
+      
    }
 
    public get width(): number {
       return this._width;
    }
 
-   public set width(value: number) {
-      this._width = value;
+   public set width(val: number) {
+      if (val > this._maxWidth) val = this._maxWidth;
+      else if (val < this._minWidth) val = this._minWidth;
+
+      this._width = val;
    }
 
    public get height(): number {
       return this._height;
    }
 
-   public set height(value: number) {
-      this._height = value;
+   public set height(val: number) {
+      if (val > this._maxHeight) val = this._maxHeight;
+      else if (val < this._minHeight) val = this._minHeight;
+
+      this._height = val;
    }
 
-   public get maxWidth(): number {
-      return this._maxWidth;
-   }
-
-   public set maxWidth(value: number) {
-      this._maxWidth = value;
-   }
-
-   public get maxHeight(): number {
-      return this._maxHeight;
-   }
-
-   public set maxHeight(value: number) {
-      this._maxHeight = value;
-   }
-
-   public get minWidth(): number {
-      return this._minWidth;
-   }
-
-   public set minWidth(value: number) {
-      this._minWidth = value;
-   }
-
-   public get minHeight(): number {
-      return this._minHeight;
-   }
-   
-   public set minHeight(value: number) {
-      this._minHeight = value;
-   }
 }
