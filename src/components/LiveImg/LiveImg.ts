@@ -41,9 +41,9 @@ export default class LiveImg {
     * @param config параметры LiveImg
     */
    private _useConfig(config: LiveImgConfig): void {
-      if (config.height) this._setHeight(config.height);
-      if (config.width) this._setHeight(config.width);
-   }
+      if ('width' in config) this._setWidth(config.width);
+      if ('height' in config) this._setHeight(config.height);
+   } 
 
    private _setWidth(val: number): void {
       if (val > this._maxWidth) val = this._maxWidth;

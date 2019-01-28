@@ -9,13 +9,23 @@ describe("class LiveImg", () => {
          expect(new LiveImg()).instanceof(LiveImg);         
       });
 
-      it(`Custom params`, () => {
-         const liveImg = new LiveImg({
-            width: 100,
-            height: 100,
-         });
+      it(`Empty params`, () => {
+         const liveImg = new LiveImg({});
+         expect(liveImg).instanceof(LiveImg); 
+      });
+
+      it(`Width`, () => {
+         const liveImg = new LiveImg({width: 100});
 
          expect(liveImg).instanceof(LiveImg); 
+         expect(liveImg.width).equal(100);
+      });
+
+      it(`Height`, () => {
+         const liveImg = new LiveImg({height: 100});
+
+         expect(liveImg).instanceof(LiveImg); 
+         expect(liveImg.height).equal(100);
       });
    
    });
