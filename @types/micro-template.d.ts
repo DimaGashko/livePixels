@@ -38,6 +38,19 @@ declare namespace MicroTemplate {
        * 
        */
       get: CustomGetFunction,
+
+      /**
+       * By default, micro-template uses syntax to expand data variables 
+       * This behavior is almost convenience, but if you want to expressly 
+       * fast template function, you can do this by set template.variable
+       * 
+       * ```JavaScript
+       * template.variable = 'tmpl';
+       * var func = template('aaa <% tmpl.foo %> bbb');
+       * var result = func({ foo : 'foo' });
+       * ```
+       */
+      variable: string;
    }
 
    interface CustomGetFunction { 
