@@ -1,3 +1,6 @@
+const img = require('./test.png');
+console.log(img);
+
 export interface LiveImgConfig {
    width?: number,
    height?: number,
@@ -13,10 +16,20 @@ export default class LiveImg {
    private _minWidth: number = 0;
    private _minHeight: number = 0;
 
+   // HTML-контейнер картинки
+   private _root: HTMLElement = null;
+
    constructor(config?: LiveImgConfig) {
       if (config) {
          this._useConfig(config);
       }
+   }
+
+   public get root(): HTMLElement {
+      return this._root;
+   }
+   public set root(val: HTMLElement) {
+      this._root = val;
    }
 
    public get width(): number {
@@ -48,7 +61,7 @@ export default class LiveImg {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
    } 
-   
+
    private _setWidth(val: number): void {
       if (val > this._maxWidth) val = this._maxWidth;
       else if (val < this._minWidth) val = this._minWidth;

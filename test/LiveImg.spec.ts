@@ -33,16 +33,19 @@ describe('Class LiveImg', () => {
    describe('Gets & Sets', () => { 
       const liveImg = new LiveImg();
 
-      it('Width', () => {
+      it('width', () => {
          liveImg.width = 500;
-
          expect(liveImg.width).equal(500);
       });
 
-      it('Height', () => {
+      it('height', () => {
          liveImg.height = 500;
-
          expect(liveImg.height).equal(500);
+      });
+
+      it('root', () => { 
+         const root: any = liveImg.root;
+         expect(root).instanceOf(HTMLElement);
       });
    }); 
 
