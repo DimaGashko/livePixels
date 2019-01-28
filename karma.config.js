@@ -8,13 +8,18 @@ module.exports = function (config) {
       exclude: [],
       preprocessors: {
          'test/**/*.ts': ['webpack'],
+         'src/**/*.ts': ['coverage'],
       },
       webpack: {
          mode: 'development',
          module: webpackConfig.module,
          resolve: webpackConfig.resolve,
       },
-      reporters: ['progress'],
+      coverageReporter: {
+         type: 'text',
+         file: 'output',
+      },
+      reporters: ['mocha', 'coverage'],
       port: 9876,
       colors: true,
       logLevel: config.LOG_INFO,
