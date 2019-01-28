@@ -1,9 +1,5 @@
-import * as myImage from './LiveImgTemplate.pug';
-console.log(myImage);
+import * as liveImgTemplate from './LiveImgTemplate.pug';
 
-import { template } from 'micro-template';
-console.log(template('asd<%=a%> sfa sdjflak;sdj ffasdfadsfadsf', {a: 999999}));
-template.get;
 export interface LiveImgConfig {
    width?: number,
    height?: number,
