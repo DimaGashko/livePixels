@@ -2,10 +2,7 @@ import * as myImage from './LiveImgTemplate.pug';
 console.log(myImage);
 
 import { template } from 'micro-template';
-
-console.log(microTemplate.template('asd<%=a%> sfa sdjflak;sdj ffasdfadsfadsf', {a: 999999}));
-
-
+console.log(template('asd<%=a%> sfa sdjflak;sdj ffasdfadsfadsf', {a: 999999}));
 
 export interface LiveImgConfig {
    width?: number,
