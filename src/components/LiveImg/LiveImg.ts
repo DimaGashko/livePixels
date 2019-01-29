@@ -128,8 +128,8 @@ export default class LiveImg {
    private draw(frameTime: number, time: number): void {
       const ctx = this.ctx;
       const len = 5000;
-      const size = 5;
-      const offset = 50;
+      const size = 3;
+      const offset = 1;
       const w = this._width + offset * 2;
       const h = this._height + offset * 2;
 
@@ -148,8 +148,8 @@ export default class LiveImg {
          x -= offset;
          y -= offset;
 
-         drawCircle(x, y); //2000 -> 40fps
-         //drawRect(x, y); //12000 -> 40fps
+         //drawCircle(x, y); //2000 -> 40fps
+         drawRect(x, y); //12000 -> 40fps
       }
 
       function drawCircle(x: number, y: number): void {
