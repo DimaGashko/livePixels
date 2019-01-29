@@ -1,5 +1,5 @@
 import * as liveImgTemplate from './templates/LiveImg.pug';
-//import './styles/LiveImg.sass'
+import './styles/LiveImg.sass'
 
 export interface LiveImgConfig {
    width?: number,

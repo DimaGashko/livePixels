@@ -80,7 +80,7 @@ module.exports = {
    },
    plugins: [
       new HtmlWebpackPlugin({
-         template: './src/index.pug',
+         template: './src/templates/index.pug',
          favicon: "./src/img/favicon.png",
          minify: {
             collapseWhitespace: true,
