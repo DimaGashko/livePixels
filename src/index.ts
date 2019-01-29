@@ -6,10 +6,10 @@ import './styles/index.sass';
 const container = document.querySelector('.live-img');
  
 const liveImg = new LiveImg({
-   width: 300,
-   height: 200,
+   width: 500,
+   height: 300,
 });
 
-container.appendChild(liveImg.root); 
+container.appendChild(liveImg.root);
  
 console.log(liveImg.width, liveImg.height);

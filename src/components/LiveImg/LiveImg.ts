@@ -132,7 +132,8 @@ export default class LiveImg {
    }
 
    private _updateCanvasSize(): void {
-      this._els.canvas
+      this._els.canvas.width = this._width;
+      this._els.canvas.height = this._height;
    }
 
    private _createHtml(): void {
@@ -143,7 +144,7 @@ export default class LiveImg {
    }
 
    private _getElements(): void {
-      this._els.canvas = this._root.querySelector('.liveImg__canva');
+      this._els.canvas = this._root.querySelector('.liveImg__canvas');
 
       this._checkElements();
    }
