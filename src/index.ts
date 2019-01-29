@@ -4,8 +4,8 @@ import LiveImg from './components/LiveImg/LiveImg';
 const container = document.querySelector('.live-img');
 
 const liveImg = new LiveImg({
-   width: 800,
-   height: 600,
+   width: 300,
+   height: 200,
 });
 
 container.appendChild(liveImg.root);

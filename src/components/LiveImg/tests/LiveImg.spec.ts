@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import LiveImg from '../src/components/LiveImg/LiveImg';
+import LiveImg from '../LiveImg';
 
 describe('Class LiveImg', () => {
 

@@ -5,10 +5,10 @@ module.exports = function (config) {
       basePath: '',
       frameworks: ['mocha', 'chai', 'sinon'],
       reporters: ['mocha'],
-      files: ['test/**/*.ts'],
+      files: ['src/**/*.spec.ts'],
       exclude: [],
       preprocessors: {
-         'test/**/*.ts': ['webpack'],
+         'src/**/*.spec.ts': ['webpack'],
       },
       webpack: {
          mode: 'development',

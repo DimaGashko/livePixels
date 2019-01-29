@@ -1,4 +1,4 @@
-import * as liveImgTemplate from './LiveImgTemplate.pug';
+import * as liveImgTemplate from './templates/LiveImgTemplate.pug';
 
 export interface LiveImgConfig {
    width?: number,
