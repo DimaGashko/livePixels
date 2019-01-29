@@ -75,6 +75,7 @@ export default class LiveImg {
     */
    public set width(val: number) {
       this._setWidth(val);
+      this._updateCanvasSize();
    }
 
    public get height(): number {
@@ -87,6 +88,7 @@ export default class LiveImg {
     */
    public set height(val: number) {
       this._setHeight(val);
+      this._updateCanvasSize();
    }
 
    private startRender(): void {

@@ -32,6 +32,7 @@ describe('Class LiveImg', () => {
  
    describe('Gets & Sets', () => { 
       const liveImg = new LiveImg();
+      const canvas = <HTMLCanvasElement>liveImg.root.firstElementChild;
 
       it('width (by LiveImg interface)', () => {
          liveImg.width = 500;
@@ -48,15 +49,18 @@ describe('Class LiveImg', () => {
          expect(root).instanceOf(Element);
       });
   
-      it('width (by DOM element)', () => {
+      it('width (by canvas element)', () => {
          liveImg.width = 500;
-         expect(liveImg.root.clientWidth).equal(500);
+
+         expect(canvas.width).equal(500);
       });
 
-      it('height (by DOM element)', () => {
+      it('height (by canvas element)', () => {
          liveImg.height = 500;
-         expect(liveImg.root.clientHeight).equal(500);
+         
+         expect(canvas.height).equal(500);
       });
+
    }); 
 
 });
