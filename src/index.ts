@@ -1,4 +1,4 @@
-import './index.sass';
+import './styles/index.sass';
 import LiveImg from './components/LiveImg/LiveImg';
 
 const container = document.querySelector('.live-img');

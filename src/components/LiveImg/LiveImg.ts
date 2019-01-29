@@ -1,11 +1,11 @@
 import * as liveImgTemplate from './templates/LiveImg.pug';
-import './styles/LiveImg.sass'
+//import './styles/LiveImg.sass'
 
 export interface LiveImgConfig {
    width?: number,
    height?: number,
 }
-
+ 
 export default class LiveImg {
    private _width: number = 300;
    private _height: number = 300;

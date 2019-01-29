@@ -1,4 +1,4 @@
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.common');
 
 module.exports = function (config) {
    config.set({
@@ -6,7 +6,7 @@ module.exports = function (config) {
       frameworks: ['mocha', 'chai', 'sinon'],
       reporters: ['mocha'],
       files: ['src/**/*.spec.ts'],
-      exclude: [],
+      exclude: ['**/*.sass'],
       preprocessors: {
          'src/**/*.spec.ts': ['webpack'],
       },
