@@ -32,7 +32,7 @@ module.exports = {
          test: /\.pug/,
          loaders: ['html-loader', 'pug-html-loader'],
       }, {
-         test: /\.sass$/,
+         test: /\.(sass|css)$/,
          use: [
             MiniCssExtractPlugin.loader, //'style-loader',
             'css-loader',

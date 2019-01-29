@@ -1,8 +1,10 @@
-import './styles/index.sass';
 import LiveImg from './components/LiveImg/LiveImg';
 
-const container = document.querySelector('.live-img');
+import 'normalize.css'
+import './styles/index.sass';
 
+const container = document.querySelector('.live-img');
+ 
 const liveImg = new LiveImg({
    width: 300,
    height: 200,

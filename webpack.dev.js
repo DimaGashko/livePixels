@@ -6,6 +6,7 @@ module.exports = merge(common, {
    devtool: 'cheap-inline-module-source-map',
    devServer: {
       contentBase: '/',
-      open: false
+      overlay: true,
+      open: false,
    }
 });
