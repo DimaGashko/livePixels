@@ -15,6 +15,10 @@ module.exports = function (config) {
          module: webpackConfig.module,
          resolve: webpackConfig.resolve,
       },
+      webpackMiddleware: {
+         noInfo: true,
+         stats: 'errors-only'
+      },
       mochaReporter: {
          showDiff: true,
       },
