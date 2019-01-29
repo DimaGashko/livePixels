@@ -1,11 +1,11 @@
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
- 
+
 export interface LiveImgConfig {
    width?: number,
    height?: number,
 }
- 
+
 export default class LiveImg {
    private _width: number = 300;
    private _height: number = 300;
@@ -16,10 +16,18 @@ export default class LiveImg {
    private _minWidth: number = 0;
    private _minHeight: number = 0;
 
-   // HTML-контейнер картинки
+   /** HTML-контейнер картинки */
    private _root: Element | null = null;
 
-   private _els: {[name: string]: Element | null} = {};
+   private _els: { [name: string]: Element | null } = {};
+
+   /**
+    * Id текущего requestAnimationFrame.
+    * Используется для остановки рендера картинки.
+    * Также _frameId !== 0, значит что в данный 
+    * момент картинка рендерится (см. метод ` _isRendering() `)
+    */
+   private _frameId: number = 0;
 
    constructor(config?: LiveImgConfig) {
       if (config) {
@@ -28,6 +36,8 @@ export default class LiveImg {
 
       this._createHtml();
       this._getElements();
+
+      this.startRender();
    }
 
    public get root(): Element | null {
@@ -37,9 +47,11 @@ export default class LiveImg {
    public get width(): number {
       return this._width;
    }
-
-   // Устанавливает ширину картинки
-   // (Вызывает перерисовку)
+ 
+   /**
+    * Устанавливает ширину картинки
+    * (Вызывает перерисовку)
+    */
    public set width(val: number) {
       this._setWidth(val);
    }
@@ -48,10 +60,43 @@ export default class LiveImg {
       return this._height;
    }
 
-   // Устанавливает высоту картинки
-   // (Вызывает перерисовку)
+   /**
+    * Устанавливает высоту картинки
+    * (Вызывает перерисовку) 
+    */
    public set height(val: number) {
       this._setHeight(val);
+   }
+
+   private startRender(): void {
+      if (this._isRendering()) return;
+      const liveImg = this;
+
+      requestAnimationFrame(function renderFunction(time:number) { 
+         liveImg.update();
+         liveImg.draw();
+
+         requestAnimationFrame(renderFunction);
+      });
+   }
+
+   private _stopRender(): void {
+      if (!this._isRendering()) return;
+
+      cancelAnimationFrame(this._frameId);
+      this._frameId = 0;
+   }
+
+   private update(): void { 
+      console.log('tik');
+   }
+
+   private draw(): void {
+
+   }
+
+   private _isRendering(): boolean {
+      return this._frameId !== 0;
    }
 
    private _createHtml(): void {
@@ -73,7 +118,7 @@ export default class LiveImg {
    private _useConfig(config: LiveImgConfig): void {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
-   } 
+   }
 
    private _setWidth(val: number): void {
       if (val > this._maxWidth) val = this._maxWidth;

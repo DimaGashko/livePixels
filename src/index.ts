@@ -10,6 +10,6 @@ const liveImg = new LiveImg({
    height: 200,
 });
 
-container.appendChild(liveImg.root);
+container.appendChild(liveImg.root); 
  
 console.log(liveImg.width, liveImg.height);
