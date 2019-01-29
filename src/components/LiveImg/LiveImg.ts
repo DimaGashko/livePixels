@@ -29,6 +29,15 @@ export default class LiveImg {
     */
    private _frameId: number = 0;
 
+   /**
+    * При низком fps время кадра может быть слишком долгим. Так как 
+    * все "update" учитывают время кадра, то при большом его значении 
+    * могут работать не корректно
+    * MAX_FRAME_TIME указывает, максимальное время кадра. Если оно больше
+    * считаем его равным MAX_FRAME_TIME. 
+    */
+   private readonly _MAX_FRAME_TIME: number = 60;
+
    constructor(config?: LiveImgConfig) {
       if (config) {
          this._useConfig(config);
@@ -71,11 +80,18 @@ export default class LiveImg {
    private startRender(): void {
       if (this._isRendering()) return;
       const liveImg = this;
+      let prevTime = -1;
 
-      requestAnimationFrame(function renderFunction(time:number) { 
-         liveImg.update();
+      requestAnimationFrame(function renderFunction(time: number) { 
+         let frameTime: number = (prevTime != -1) ?
+            time - prevTime : 16;
+         
+         frameTime = liveImg._correctFrameTime(frameTime);
+
+         liveImg.update(frameTime, time);
          liveImg.draw();
 
+         prevTime = time;
          requestAnimationFrame(renderFunction);
       });
    }
@@ -87,8 +103,8 @@ export default class LiveImg {
       this._frameId = 0;
    }
 
-   private update(): void { 
-      console.log('tik');
+   private update(frameTime: number, time: number): void { 
+      console.log(frameTime, time);
    }
 
    private draw(): void {
@@ -134,4 +150,11 @@ export default class LiveImg {
       this._height = val;
    }
 
+   private _correctFrameTime(frameTime: number): number {
+      if (frameTime > this._MAX_FRAME_TIME) {
+         frameTime = this._MAX_FRAME_TIME;
+      }
+
+      return frameTime;
+   }
 }
