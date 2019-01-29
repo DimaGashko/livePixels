@@ -29,6 +29,8 @@ export default class LiveImg {
       canvas: null,
    };
 
+   private ctx: CanvasRenderingContext2D = null;
+
    /**
     * Id текущего requestAnimationFrame.
     * Используется для остановки рендера картинки.
@@ -55,10 +57,11 @@ export default class LiveImg {
       this.startRender();
    }
 
-   private init(): void { 
+   private init(): void {
       this._createHtml();
       this._getElements();
       this._updateMetrics();
+      this._getCtx();
    }
 
    public get root(): Element | null {
@@ -68,7 +71,7 @@ export default class LiveImg {
    public get width(): number {
       return this._width;
    }
- 
+
    /**
     * Устанавливает ширину картинки
     * (Вызывает перерисовку)
@@ -96,14 +99,15 @@ export default class LiveImg {
       const liveImg = this;
       let prevTime = -1;
 
-      requestAnimationFrame(function renderFunction(time: number) { 
+      requestAnimationFrame(function renderFunction(time: number) {
          let frameTime: number = (prevTime != -1) ?
             time - prevTime : 16;
-         
+
          frameTime = liveImg._correctFrameTime(frameTime);
 
+         liveImg._clearCanvas();
          liveImg.update(frameTime, time);
-         liveImg.draw();
+         liveImg.draw(frameTime, time);
 
          prevTime = time;
          requestAnimationFrame(renderFunction);
@@ -117,19 +121,45 @@ export default class LiveImg {
       this._frameId = 0;
    }
 
-   private update(frameTime: number, time: number): void { 
-     // console.log(frameTime, time);
+   private update(frameTime: number, time: number): void {
+      // console.log(frameTime, time);
    }
 
-   private draw(): void {
+   private draw(frameTime: number, time: number): void {
+      const ctx = this.ctx;
+      const elements = 12000;
+      const r = 5;
 
+      ctx.fillStyle = '#1A237E';
+
+      for (let i = 0; i < elements; i++) {
+         let x = Math.random() * this._width;
+         let y = Math.random() * this._height;
+
+         //drawCircle(x, y); //2000 -> 40fps
+         drawRect(x, y); //12000 -> 40fps
+      }
+
+      function drawCircle(x: number, y: number): void {
+         ctx.beginPath();
+         ctx.arc(x, y, r, 0, Math.PI * 2);
+         ctx.fill();
+      }
+
+      function drawRect(x: number, y: number): void {
+         ctx.fillRect(x - r, y - r, r * 2, r * 2);
+      }
    }
 
    private _isRendering(): boolean {
       return this._frameId !== 0;
    }
 
-   private _updateMetrics(): void { 
+   private _clearCanvas(): void {
+      this.ctx.clearRect(0, 0, this._width, this._height);
+   }
+
+   private _updateMetrics(): void {
       this._updateCanvasSize();
    }
 
@@ -149,6 +179,10 @@ export default class LiveImg {
       this._els.canvas = this._root.querySelector('.liveImg__canvas');
 
       this._checkElements();
+   }
+
+   private _getCtx(): void {
+      this.ctx = this._els.canvas.getContext('2d');
    }
 
    private _checkElements(): void {
