@@ -127,27 +127,39 @@ export default class LiveImg {
 
    private draw(frameTime: number, time: number): void {
       const ctx = this.ctx;
-      const elements = 12000;
-      const r = 5;
+      const len = 5000;
+      const size = 5;
+      const offset = 50;
+      const w = this._width + offset * 2;
+      const h = this._height + offset * 2;
 
-      ctx.fillStyle = '#1A237E';
+      let yLen = Math.sqrt(len * h / w) ^ 0;
+      let xLen = (w * yLen / h) ^ 0;
 
-      for (let i = 0; i < elements; i++) {
-         let x = Math.random() * this._width;
-         let y = Math.random() * this._height;
+      const wZoom = w / xLen;
+      const hZoom = h / yLen;
 
-         //drawCircle(x, y); //2000 -> 40fps
-         drawRect(x, y); //12000 -> 40fps
+      ctx.fillStyle = '#1976D2';
+
+      for (let i = 0; i < len; i++) {
+         let x = ((i % xLen) * wZoom) ^ 0;
+         let y = ((i / xLen) ^ 0) * hZoom;
+
+         x -= offset;
+         y -= offset;
+
+         drawCircle(x, y); //2000 -> 40fps
+         //drawRect(x, y); //12000 -> 40fps
       }
 
       function drawCircle(x: number, y: number): void {
          ctx.beginPath();
-         ctx.arc(x, y, r, 0, Math.PI * 2);
+         ctx.arc(x, y, size / 2, 0, Math.PI * 2);
          ctx.fill();
       }
 
       function drawRect(x: number, y: number): void {
-         ctx.fillRect(x - r, y - r, r * 2, r * 2);
+         ctx.fillRect(x, y, size, size);
       }
    }
 
