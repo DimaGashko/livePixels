@@ -6,6 +6,11 @@ export interface LiveImgConfig {
    height?: number,
 }
 
+interface LiveImgElements {
+   canvas: HTMLCanvasElement | null,
+   [name: string]: Element | null,
+}
+
 export default class LiveImg {
    private _width: number = 300;
    private _height: number = 300;
@@ -16,10 +21,13 @@ export default class LiveImg {
    private _minWidth: number = 0;
    private _minHeight: number = 0;
 
-   /** HTML-контейнер картинки */
+   /** Html-контейнер картинки */
    private _root: Element | null = null;
 
-   private _els: { [name: string]: Element | null } = {};
+   /** Html элементы */
+   private _els: LiveImgElements = {
+      canvas: null,
+   };
 
    /**
     * Id текущего requestAnimationFrame.
@@ -43,10 +51,14 @@ export default class LiveImg {
          this._useConfig(config);
       }
 
+      this.init();
+      this.startRender();
+   }
+
+   private init(): void { 
       this._createHtml();
       this._getElements();
-
-      this.startRender();
+      this._updateMetrics();
    }
 
    public get root(): Element | null {
@@ -104,7 +116,7 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void { 
-      console.log(frameTime, time);
+     // console.log(frameTime, time);
    }
 
    private draw(): void {
@@ -115,6 +127,14 @@ export default class LiveImg {
       return this._frameId !== 0;
    }
 
+   private _updateMetrics(): void { 
+      this._updateCanvasSize();
+   }
+
+   private _updateCanvasSize(): void {
+      this._els.canvas
+   }
+
    private _createHtml(): void {
       const tmpContainer = document.createElement('div');
       tmpContainer.innerHTML = liveImgTemplate;
@@ -123,7 +143,22 @@ export default class LiveImg {
    }
 
    private _getElements(): void {
-      this._els.canvas = this._root.querySelector('liveImg__canvas');
+      this._els.canvas = this._root.querySelector('.liveImg__canva');
+
+      this._checkElements();
+   }
+
+   private _checkElements(): void {
+      const missedElements: string[] = [];
+
+      if (!this._els.canvas) {
+         missedElements.push('canvas');
+      }
+
+      if (!missedElements.length) return;
+
+      const errMsg = `LiveImgError: Can't get next elements: ${missedElements}`;
+      throw ReferenceError(errMsg);
    }
 
    /**
