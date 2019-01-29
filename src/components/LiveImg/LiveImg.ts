@@ -126,14 +126,14 @@ export default class LiveImg {
    }
 
    private draw(frameTime: number, time: number): void {
-      time = time / 100;
-
+      time = (time / 16) / 600 / 2;
+      
       const ctx = this.ctx;
       const size = 3;
-      const offset = -100;
+      const offset = -130;
       const w = this._width + offset * 2;
       const h = this._height + offset * 2;
-      let len = 8000;
+      let len = 5000;
       
       let yLen = Math.round(Math.sqrt(len * h / w))
       let xLen = Math.round(w * yLen / h);
@@ -143,20 +143,26 @@ export default class LiveImg {
       const wZoom = w / xLen;
       const hZoom = h / yLen;
 
-      const xVal = 50;
-      const yVal = 10;
+      const xVal = 5;
+      const yVal = 5;
 
       ctx.fillStyle = '#03A9F4';
 
       for (let i = 0; i < len; i++) {
-         let x = ((i % xLen) * wZoom) ^ 0;
-         let y = ((i / xLen) ^ 0) * hZoom;
+         const row = i % xLen;
+         const col = (i / xLen) ^ 0;
+
+         let x = row * wZoom;
+         let y = col * hZoom;
 
          x -= offset;
          y -= offset;
-
-         x += xVal * Math.sin(time / 1000 * i);
-         y += yVal * Math.cos(time / 1000 * i);
+ 
+         //x += xVal * Math.sin(time * row);
+         //y += yVal * (Math.sin(time * col / 3.14));
+         
+         x += 50 * Math.cos(time*col) + Math.pow(Math.sin(time*col), 3) * col
+         y += 5 * Math.sin(time * row);
 
          //drawCircle(x, y); //2000 -> 40fps
          drawRect(x, y); //12000 -> 40fps
