@@ -3,6 +3,7 @@
 
 # compiled output
 /dist
+/webpack-analyze
 
 # dependencies
 /node_modules
