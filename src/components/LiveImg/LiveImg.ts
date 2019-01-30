@@ -1,5 +1,6 @@
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
+import Vector from '../Vector/Vector';
 
 export interface LiveImgConfig {
    width?: number,
@@ -12,14 +13,9 @@ interface LiveImgElements {
 }
 
 export default class LiveImg {
-   private _width: number = 300;
-   private _height: number = 300;
-
-   private _maxWidth: number = 10000;
-   private _maxHeight: number = 10000;
-
-   private _minWidth: number = 0;
-   private _minHeight: number = 0;
+   private _size: Vector = new Vector(300, 300);
+   private _maxSize: Vector = new Vector(5000, 5000);
+   private _minSize: Vector = new Vector(0, 0);
 
    /** Html-контейнер картинки */
    private _root: Element | null = null;
@@ -69,7 +65,7 @@ export default class LiveImg {
    }
 
    public get width(): number {
-      return this._width;
+      return this._size.x;
    }
 
    /**
@@ -82,7 +78,7 @@ export default class LiveImg {
    }
 
    public get height(): number {
-      return this._height;
+      return this._size.y;
    }
 
    /**
@@ -134,7 +130,7 @@ export default class LiveImg {
    }
 
    private _clearCanvas(): void {
-      this.ctx.clearRect(0, 0, this._width, this._height);
+      this.ctx.clearRect(0, 0, this._size.x, this._size.y);
    }
 
    private _updateMetrics(): void {
@@ -142,8 +138,8 @@ export default class LiveImg {
    }
 
    private _updateCanvasSize(): void {
-      this._els.canvas.width = this._width;
-      this._els.canvas.height = this._height;
+      this._els.canvas.width = this._size.x;
+      this._els.canvas.height = this._size.y;
    }
 
    private _createHtml(): void {
@@ -187,17 +183,17 @@ export default class LiveImg {
    }
 
    private _setWidth(val: number): void {
-      if (val > this._maxWidth) val = this._maxWidth;
-      else if (val < this._minWidth) val = this._minWidth;
+      if (val > this._maxSize.x) val = this._maxSize.x;
+      else if (val < this._minSize.x) val = this._minSize.x;
 
-      this._width = val;
+      this._size.x = val;
    }
 
    private _setHeight(val: number): void {
-      if (val > this._maxHeight) val = this._maxHeight;
-      else if (val < this._minHeight) val = this._minHeight;
+      if (val > this._maxSize.y) val = this._maxSize.y;
+      else if (val < this._minSize.y) val = this._minSize.y;
 
-      this._height = val;
+      this._size.y = val;
    }
 
    private _correctFrameTime(frameTime: number): number {
