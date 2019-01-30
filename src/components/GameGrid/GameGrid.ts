@@ -88,7 +88,10 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       const cell = this.getCell(obj.coordsInGrid);
       if (!cell) return;
 
-      cell.filter((item) => item != obj);
+      const index = cell.indexOf(obj);
+      if (index === -1) return;
+
+      cell.splice(index, 1);
 
       this.objectsLen--;
    }
