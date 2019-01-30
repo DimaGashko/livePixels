@@ -1,6 +1,11 @@
 import Vector from "../Vector/Vector";
 
-export default class GameGrid<T> {
+interface IObject {
+   coords: Vector;
+   newCoords: Vector;
+}
+
+export default class GameGrid<T extends IObject> {
    /** Размер сетки (размер массивов) */ 
    private size: Vector = null
 
@@ -22,11 +27,17 @@ export default class GameGrid<T> {
       this.init();
    }
 
+   public remove(object: T) { 
+      if (!object) return;
+
+      const coords = object.coords;
+   }
+
    /**
-    * Возвращает объект по его координатам (в сетке)
-    * @param coords Координаты объекта в сетке
+    * Возвращает ячейку сетки по ее координатам 
+    * @param coords Координаты ячейки
     */
-   private get(coords: Vector) : T | null {
+   private getCell(coords: Vector) : T | null {
       const hasCoords = coords.x >= 0 && coords.y >= 0
          && coords.x < this.size.x && coords.y < this.size.y;
 
