@@ -1,5 +1,9 @@
 import Vector from "../Vector/Vector";
 
+/**
+ * Интерфейс, которому объект обязан соответствовать, 
+ * что бы быть совместимым с сеткой
+ */
 export interface IGameObjectForGrid {
    coords: Vector;
    coordsInGrid: Vector;
