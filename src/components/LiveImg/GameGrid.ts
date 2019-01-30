@@ -45,7 +45,7 @@ export default class GameGrid<T extends IObject> {
       } 
 
       object.coordsInGrid = coords;
-      
+
       const cell = this.getCell(coords);
       cell.push(object);
    }
@@ -57,6 +57,10 @@ export default class GameGrid<T extends IObject> {
       const cell = this.getCell(coords);
 
       cell.filter((item) => item != object);
+   }
+
+   public getObjectsOfRange(): T[] { 
+      return [];
    }
 
    /**
