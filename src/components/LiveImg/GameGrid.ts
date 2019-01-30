@@ -22,6 +22,26 @@ export default class GameGrid<T> {
       this.init();
    }
 
+   /**
+    * Возвращает объект по его координатам (в сетке)
+    * @param coords Координаты объекта в сетке
+    */
+   private get(coords: Vector) : T | null {
+      const hasCoords = coords.x >= 0 && coords.y >= 0
+         && coords.x < this.size.x && coords.y < this.size.y;
+
+      return (hasCoords) ? this.grid[coords.x][coords.y] : null;
+   }
+
+   private getCoordsInGrid(coords: Vector) { 
+      let res = coords.unscale(this.cellSize);
+
+      res.x = res.x ^ 0;
+      res.y = res.y ^ 0;
+
+      return res;
+   }
+
    private init() { 
       this.grid = new Array(this.size.x);
       
