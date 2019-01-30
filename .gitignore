@@ -1,6 +1,8 @@
 # name.~docx, name.~vsdx etc.
 /**/*.~*
 
+**/*.mp4
+
 # compiled output
 /dist
 /webpack-analyze
