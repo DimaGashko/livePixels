@@ -67,6 +67,11 @@ export default class GameGrid<T extends IObject> {
       this.objectsLen--;
    }
 
+   /**
+    * Возвращает все объекты, что находятся на переданном интервале
+    * @param start координаты начала интервала (верхний правый угол)
+    * @param size размеры интервала (ширина, высота)
+    */
    public getObjectsOfRange(start: Vector, size: Vector): T[] { 
       const _start = this.getCoordsInGrid(start); // rangeStart in grid
       const _size = this.getCoordsInGrid(size); // rangeSize in grid
@@ -98,6 +103,10 @@ export default class GameGrid<T extends IObject> {
       return result;
    }
 
+   /**
+    * Возвращает все объекты находящиеся в сетке
+    * (является упрощенным вариантом getObjectsOfRange)
+    */
    public getAllObjects(): T[] { 
       const result: T[] = new Array(this.objectsLen);
       let index = 0;
