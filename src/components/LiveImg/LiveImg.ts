@@ -2,6 +2,7 @@ import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
 import Vector from '../Vector/Vector';
 import LivePixel from './LivePixel';
+import GameGrid from './GameGrid';
 
 export interface LiveImgConfig {
    width?: number,
@@ -47,6 +48,8 @@ export default class LiveImg {
     * считаем его равным MAX_FRAME_TIME. 
     */
    private readonly _MAX_FRAME_TIME: number = 60;
+
+   private _grid: GameGrid<LivePixel> = null;
 
    constructor(config?: LiveImgConfig) {
       if (config) {

@@ -1,11 +1,25 @@
 import Vector from "../Vector/Vector";
 
-interface IObject {
+export interface IGameObjectForGrid {
    coords: Vector;
    coordsInGrid: Vector;
 }
 
-export default class GameGrid<T extends IObject> {
+/**
+ * Класс сетки игрового поля
+ * 
+ * Представляет собой двумерную сетку размерностью `cellSize`. 
+ * 
+ * Сетка предназначена для быстрого получения объектов в нужном интервале.
+ * Может использовать что бы быстро получать объекты находящиеся рядом с другим 
+ * объектом (для определения столкновений), что избавляет от сложности O(n^2).
+ * 
+ * @param gridSize размер сетки в пикселях
+ * @param cellSize размер ячеек сетки
+ * 
+ * @class
+ */
+export default class GameGrid<T extends IGameObjectForGrid> {
    /** Размер сетки (размер массивов) */ 
    private size: Vector = null
 
@@ -155,4 +169,3 @@ export default class GameGrid<T extends IObject> {
    } 
 
 }
-
