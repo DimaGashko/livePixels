@@ -1,6 +1,7 @@
 import Vector from "../Vector/Vector";
+import { IGameObjectForGrid } from "../GameGrid/GameGrid";
 
-export default class LivePixel {
+export default class LivePixel implements IGameObjectForGrid {
    public size: number = 5;
 
    /**
