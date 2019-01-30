@@ -1,6 +1,7 @@
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
 import Vector from '../Vector/Vector';
+import LivePixel from './LivePixel';
 
 export interface LiveImgConfig {
    width?: number,
@@ -118,11 +119,11 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void {
-      // console.log(frameTime, time);
+      
    }
 
    private draw(frameTime: number, time: number): void {
-     
+      
    }
 
    private _isRendering(): boolean {

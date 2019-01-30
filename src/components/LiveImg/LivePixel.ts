@@ -34,10 +34,13 @@ export default class LivePixel {
    }
 
    public update(frameTime: number, time: number): void { 
-
+      
    }
 
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 
+      ctx.save();
+      ctx.fillStyle = this.color;
+
       let drawShape = this.drawShape;
 
       if (this.size < 4) drawShape = 'square';
@@ -48,6 +51,8 @@ export default class LivePixel {
       } else if (drawShape === 'square') {
             this._drawSquare(ctx, this.coords.x, this.coords.y, this.size);
       }
+
+      ctx.restore();
    }
 
    private _drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number): void {
