@@ -18,6 +18,9 @@ export default class LivePixel {
     */
    public newCoords: Vector = null;
 
+   /** Используется в GameGrid */
+   public coordsInGrin: Vector = null;
+
    /**
     * Скорость пикселя (на текущем кадре)
     * 

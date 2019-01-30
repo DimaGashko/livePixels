@@ -2,7 +2,7 @@ import Vector from "../Vector/Vector";
 
 interface IObject {
    coords: Vector;
-   newCoords: Vector;
+   coordsInGrid: Vector;
 }
 
 export default class GameGrid<T extends IObject> {
@@ -25,6 +25,29 @@ export default class GameGrid<T extends IObject> {
 
 
       this.init();
+   }
+
+   public add(object: T) { 
+      const coords = this.getCoordsInGrid(object.coords);
+      const prev = object.coordsInGrid;
+
+      // Объект уже находится в сетке
+      if (prev) { 
+
+         // Если объект уже находится в нужной ячейке
+         if (prev.x === coords.x && prev.y === coords.y) {
+            return;
+         }
+
+         // Удаляем объект со старого места
+         this.remove(object);
+
+      } 
+
+      object.coordsInGrid = coords;
+      
+      const cell = this.getCell(coords);
+      cell.push(object);
    }
 
    public remove(object: T) { 
