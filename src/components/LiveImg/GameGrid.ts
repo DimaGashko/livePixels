@@ -15,7 +15,7 @@ export default class GameGrid<T extends IObject> {
    /** Размеры ячейки в пикселях */
    private cellSize: Vector = null;
 
-   private grid: T[][] = []; 
+   private grid: T[][][] = []; 
 
    constructor(gridSize: Vector, cellSize: Vector) { 
       this.realSize = gridSize.copy();
@@ -30,14 +30,17 @@ export default class GameGrid<T extends IObject> {
    public remove(object: T) { 
       if (!object) return;
 
-      const coords = object.coords;
+      const coords = this.getCoordsInGrid(object.coords);
+      const cell = this.getCell(coords);
+
+      cell.filter((item) => item != object);
    }
 
    /**
     * Возвращает ячейку сетки по ее координатам 
     * @param coords Координаты ячейки
     */
-   private getCell(coords: Vector) : T | null {
+   private getCell(coords: Vector) : T[] | null {
       const hasCoords = coords.x >= 0 && coords.y >= 0
          && coords.x < this.size.x && coords.y < this.size.y;
 
