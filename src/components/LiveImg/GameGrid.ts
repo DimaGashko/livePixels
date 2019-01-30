@@ -1,6 +1,6 @@
 import Vector from "../Vector/Vector";
 
-export default class Grid<T> {
+export default class GameGrid<T> {
    /** Размер сетки (размер массивов) */ 
    private size: Vector = null
 
@@ -10,16 +10,25 @@ export default class Grid<T> {
    /** Размеры ячейки в пикселях */
    private cellSize: Vector = null;
 
-   private grid: T[] = []; 
+   private grid: T[][] = []; 
 
    constructor(gridSize: Vector, cellSize: Vector) { 
       this.realSize = gridSize.copy();
       this.cellSize = cellSize.copy();
 
+      this.size = gridSize.unscale(cellSize);
+
+
       this.init();
    }
 
    private init() { 
-
+      this.grid = new Array(this.size.x);
+      
+      for (let i = 0; i < this.size.x; i++) {
+         this.grid[i] = new Array(this.size.y);
+      }
    } 
+
 }
+
