@@ -46,6 +46,15 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       this.init();
    }
 
+   /**
+    * Добавляет объект в сетку. 
+    * 
+    * Если объект уже находился в сетке, то он сначала удаляется 
+    * с предыдущего места и добавляется в новое. Если объект остается 
+    * на том же месте, то функция ничего не делает.
+    * 
+    * @param object добавляемый объект
+    */
    public add(object: T) { 
       const coords = this.getCoordsInGrid(object.coords);
       const prev = object.coordsInGrid;
