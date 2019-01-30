@@ -18,6 +18,9 @@ export default class LiveImg {
    private _maxSize: Vector = new Vector(5000, 5000);
    private _minSize: Vector = new Vector(0, 0);
 
+   private _pixelSize: number = 5;
+   private _pixelShape: 'circle' | 'square' = 'circle';
+
    /** Html-контейнер картинки */
    private _root: Element | null = null;
 
