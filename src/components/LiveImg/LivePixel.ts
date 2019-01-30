@@ -1,16 +1,14 @@
 import Vector from "../Vector/Vector";
 
-enum DrawType { Circle, Square };
-
 export default class LivePixel {
-   private _size: number = 5;
+   public size: number = 5;
 
    /**
     * Координаты пикселя
     * 
     * Непосредственно изменяют положение пикселя. 
     */
-   private _coords: Vector = new Vector(0, 0);
+   public coords: Vector = new Vector(0, 0);
 
    /**
     * Используется в глобальном update (при проверке взаимодействий, 
@@ -18,18 +16,18 @@ export default class LivePixel {
     * координаты пикселя меняет его положение относительно других пикселей, 
     * из-за чего будут некорректно определяться взаимодействия).
     */
-   private _newCoords: Vector = null;
+   public newCoords: Vector = null;
 
    /**
     * Скорость пикселя (на текущем кадре)
     * 
     * В конце каждого кадра скорость прибавляется к координатам и сбрасывается.
     */
-   private _speed: Vector = new Vector(0, 0);
+   public speed: Vector = new Vector(0, 0);
 
-   private _color: string = '#FB8C00';
+   public color: string = '#FB8C00';
 
-   private _drawType: DrawType = DrawType.Circle;
+   public drawShape: 'circle' | 'square' = 'circle';
 
    constructor() { 
 
@@ -40,35 +38,21 @@ export default class LivePixel {
    }
 
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 
-      
-   }
+      let drawShape = this.drawShape;
 
-   public get coords(): Vector {
-      return this._coords;
-   }
+      if (this.size < 4) drawShape = 'square';
 
-   public set coords(val: Vector) {
-      this._coords = val;
-   }
+      if (drawShape === 'circle') { 
+         this._drawCircle(ctx, this.coords.x, this.coords.y, this.size);
 
-   public get size(): number {
-      return this._size;
-   }
-
-   public set size(val: number) {
-      this._size = val;
-   }
-
-   public get color(): string {
-      return this._color;
-   }
-   public set color(val: string) {
-      this._color = val;
+      } else if (drawShape === 'square') {
+            this._drawSquare(ctx, this.coords.x, this.coords.y, this.size);
+      }
    }
 
    private _drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number): void {
       ctx.beginPath();
-      ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+      ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
       ctx.fill();
    }
 
