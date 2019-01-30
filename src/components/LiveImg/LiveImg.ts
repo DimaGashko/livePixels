@@ -1,8 +1,9 @@
-import * as liveImgTemplate from './templates/LiveImg.pug';
-import './styles/LiveImg.sass'
 import Vector from '../Vector/Vector';
 import LivePixel from './LivePixel';
-import GameGrid from './GameGrid';
+import GameGrid from '../GameGrid/GameGrid';
+
+import * as liveImgTemplate from './templates/LiveImg.pug';
+import './styles/LiveImg.sass'
 
 export interface LiveImgConfig {
    width?: number,

@@ -60,7 +60,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       const prev = object.coordsInGrid;
 
       // Объект уже находится в сетке
-      if (prev) { 
+      if (prev) {
 
          // Если объект уже находится в нужной ячейке
          if (prev.x === coords.x && prev.y === coords.y) {
@@ -82,14 +82,13 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       this.objectsLen++;
    }
 
-   public remove(object: T) { 
-      if (!object) return;
+   public remove(obj: T) { 
+      if (!obj) return;
 
-      const coords = this.getCoordsInGrid(object.coords);
-      const cell = this.getCell(coords);
+      const cell = this.getCell(obj.coordsInGrid);
       if (!cell) return;
 
-      cell.filter((item) => item != object);
+      cell.filter((item) => item != obj);
 
       this.objectsLen--;
    }
@@ -155,13 +154,24 @@ export default class GameGrid<T extends IGameObjectForGrid> {
 
    /**
     * Возвращает ячейку сетки по ее координатам 
+    * 
+    * Если переданы координаты за пределами сетки относятся к граничным ячейкам
+    * 
     * @param coords Координаты ячейки
     */
-   private getCell(coords: Vector) : T[] | null {
-      const hasCoords = coords.x >= 0 && coords.y >= 0
-         && coords.x < this.size.x && coords.y < this.size.y;
+   private getCell(coords: Vector): T[] {
+      coords = coords.copy();
 
-      return (hasCoords) ? this.grid[coords.x][coords.y] : null;
+      const w = this.size.x;
+      const h = this.size.y;
+
+      if (coords.x < 0) coords.x = 0;
+      else if (coords.x >= w) coords.x = w - 1;
+
+      if (coords.y < 0) coords.y = 0;
+      else if (coords.y >= h) coords.y = h - 1;
+
+      return this.grid[coords.x][coords.y];
    }
 
    private getCoordsInGrid(coords: Vector) { 
@@ -178,7 +188,12 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       
       for (let i = 0; i < this.size.x; i++) {
          this.grid[i] = new Array(this.size.y);
+
+         for (let j = 0; j < this.size.y; j++) { 
+            this.grid[i][j] = [];
+         }
       }
+
    } 
 
 }
