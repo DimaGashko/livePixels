@@ -16,6 +16,7 @@ export default class GameGrid<T extends IObject> {
    private cellSize: Vector = null;
 
    private grid: T[][][] = []; 
+   private objectsLen: number = 0;
 
    constructor(gridSize: Vector, cellSize: Vector) { 
       this.realSize = gridSize.copy();
@@ -47,7 +48,11 @@ export default class GameGrid<T extends IObject> {
       object.coordsInGrid = coords;
 
       const cell = this.getCell(coords);
+      if (!cell) return;
+
       cell.push(object);
+
+      this.objectsLen++;
    }
 
    public remove(object: T) { 
@@ -55,12 +60,61 @@ export default class GameGrid<T extends IObject> {
 
       const coords = this.getCoordsInGrid(object.coords);
       const cell = this.getCell(coords);
+      if (!cell) return;
 
       cell.filter((item) => item != object);
+
+      this.objectsLen--;
    }
 
-   public getObjectsOfRange(): T[] { 
-      return [];
+   public getObjectsOfRange(start: Vector, size: Vector): T[] { 
+      const _start = this.getCoordsInGrid(start); // rangeStart in grid
+      const _size = this.getCoordsInGrid(size); // rangeSize in grid
+
+      const result: T[] = [];
+
+      for (let x = _start.x; x <= _start.x + _size.x; x++) { 
+         for (let y = _start.y; y <= _start.y + _size.y; y++) {
+            const cell = this.getCell(new Vector(x, y));
+            if (!cell) continue;
+
+            for (let i = cell.length - 1; i >= 0; i--) {
+               const obj = cell[i];
+
+               const checkObj = obj && (
+                  obj.coords.x >= start.x && obj.coords.y >= start.y &&
+                  obj.coords.x <= start.x + size.x &&
+                  obj.coords.y <= start.y + size.y
+               );
+
+               if (!checkObj) continue;
+
+               result.push(obj);
+            }
+            
+         }
+      }
+      
+      return result;
+   }
+
+   public getAllObjects(): T[] { 
+      const result: T[] = new Array(this.objectsLen);
+      let index = 0;
+
+      for (let x = 0; x < this.size.x; x++) {
+         for (let y = 0; y < this.size.y; y++) { 
+            const cell = this.getCell(new Vector(x, y));
+            if (!cell) continue;
+
+            for (let i = cell.length - 1; i >= 0; i--) {
+               result[index++] = cell[i];
+            }
+
+         }
+      }
+
+      return result;
    }
 
    /**
