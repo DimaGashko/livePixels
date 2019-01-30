@@ -62,4 +62,24 @@ describe('Class GameGrid', () => {
       expect(check3).equal(true);
    });
 
+   it('getObjectOfRange', () => {
+      const grid = new GameGrid(new Vector(100, 100), new Vector(10, 10));
+
+      const obj1 = new Obj(new Vector(24, 24));
+      const obj2 = new Obj(new Vector(30, 30));
+      const obj3 = new Obj(new Vector(36, 36));
+
+      grid.add(obj1);
+      grid.add(obj2);
+      grid.add(obj3);
+
+      const objects = grid.getObjectsOfRange(
+         // От {25, 25} до {35, 35}
+         new Vector(25, 25), new Vector(10, 10)
+      );
+
+      expect(objects.length).equal(1);
+      expect(objects[0]).equal(obj2);
+   });
+
 }); 
