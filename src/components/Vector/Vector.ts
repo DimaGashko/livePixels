@@ -3,10 +3,6 @@ export default class Vector {
 
    }
 
-   /*
-   mul div scale unscale
-   */
-
    /** {1, 2} + {2, 3} = {3, 5} */
    public add(vector: Vector): Vector {
       return new Vector(
@@ -59,7 +55,7 @@ export default class Vector {
    public scale(vector: Vector): Vector { 
       return new Vector(
          this.x * vector.x,
-         this.y * vector.x
+         this.y * vector.y
       );
    }
 
@@ -67,7 +63,7 @@ export default class Vector {
    public unscale(vector: Vector): Vector { 
       return new Vector(
          this.x / vector.x,
-         this.y / vector.x
+         this.y / vector.y
       );
    }
 

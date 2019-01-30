@@ -39,6 +39,62 @@ describe('Class Vector', () => {
          expect(res.y).equal(3);
       });
 
+      it('sub()', () => { 
+         const v1 = new Vector(2, 4);
+         const res = v1.sub(new Vector(1, 2));
+
+         expect(res.x).equal(1);
+         expect(res.y).equal(2);
+      });
+
+      it('addNub()', () => { 
+         const v1 = new Vector(2, 4);
+         const res = v1.addNum(1);
+
+         expect(res.x).equal(3);
+         expect(res.y).equal(5);
+      });
+
+      it('subNub()', () => { 
+         const v1 = new Vector(2, 4);
+         const res = v1.subNum(1);
+
+         expect(res.x).equal(1);
+         expect(res.y).equal(3);
+      });
+
+      it('mul()', () => { 
+         const v1 = new Vector(1, 2);
+         const res = v1.mul(2);
+
+         expect(res.x).equal(2);
+         expect(res.y).equal(4);
+      });
+
+      it('div()', () => { 
+         const v1 = new Vector(2, 4);
+         const res = v1.div(2);
+
+         expect(res.x).equal(1);
+         expect(res.y).equal(2);
+      });
+
+      it('scale()', () => { 
+         const v1 = new Vector(4, 5);
+         const res = v1.scale(new Vector(2, 3));
+
+         expect(res.x).equal(8);
+         expect(res.y).equal(15);
+      });
+
+      it('unscale()', () => { 
+         const v1 = new Vector(8, 15);
+         const res = v1.unscale(new Vector(2, 3));
+
+         expect(res.x).equal(4);
+         expect(res.y).equal(5);
+      });
+
       it('copy() возвращает новый вектор', () => { 
          const v1 = new Vector(1, 2);
          const res = v1.copy();
