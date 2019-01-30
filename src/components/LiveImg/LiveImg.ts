@@ -126,57 +126,7 @@ export default class LiveImg {
    }
 
    private draw(frameTime: number, time: number): void {
-      time = (time / 16) / 600 / 2;
-      
-      const ctx = this.ctx;
-      const size = 3;
-      const offset = -130;
-      const w = this._width + offset * 2;
-      const h = this._height + offset * 2;
-      let len = 5000;
-      
-      let yLen = Math.round(Math.sqrt(len * h / w))
-      let xLen = Math.round(w * yLen / h);
-
-      len = xLen * yLen;
-
-      const wZoom = w / xLen;
-      const hZoom = h / yLen;
-
-      const xVal = 5;
-      const yVal = 5;
-
-      ctx.fillStyle = '#03A9F4';
-
-      for (let i = 0; i < len; i++) {
-         const row = i % xLen;
-         const col = (i / xLen) ^ 0;
-
-         let x = row * wZoom;
-         let y = col * hZoom;
-
-         x -= offset;
-         y -= offset;
- 
-         //x += xVal * Math.sin(time * row);
-         //y += yVal * (Math.sin(time * col / 3.14));
-         
-         x += 50 * Math.cos(time*col) + Math.pow(Math.sin(time*col), 3) * col
-         y += 5 * Math.sin(time * row);
-
-         //drawCircle(x, y); //2000 -> 40fps
-         drawRect(x, y); //12000 -> 40fps
-      }
-
-      function drawCircle(x: number, y: number): void {
-         ctx.beginPath();
-         ctx.arc(x, y, size / 2, 0, Math.PI * 2);
-         ctx.fill();
-      }
-
-      function drawRect(x: number, y: number): void {
-         ctx.fillRect(x, y, size, size);
-      }
+     
    }
 
    private _isRendering(): boolean {
