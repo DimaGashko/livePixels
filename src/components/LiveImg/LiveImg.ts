@@ -153,7 +153,7 @@ export default class LiveImg {
 
    private _createPixels(): void { 
       // По осям должно быть width(height) / pixelSize пикселей
-      const pixelsSize = this._size.div(this._realPixelSize).floor();
+      const pixelsSize = this._size.div(this._realPixelSize).ceil();
 
       // А всего пикселей - это их площадь
       const pixelsLen = pixelsSize.x * pixelsSize.y;
