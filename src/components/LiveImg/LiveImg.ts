@@ -195,7 +195,7 @@ export default class LiveImg {
       }
 
       // Максимально-доступное отклонение от идеального совпадения
-      const epsilon = 2;
+      const epsilon = 4;
 
       if (this._size.x % base <= epsilon) {
          this._realPixelSize = base;
@@ -203,7 +203,7 @@ export default class LiveImg {
       }
       
       // Выбираем из чисел, что делятся на ширину
-      const candidates = getDivs_withCache(this._size.x);
+      const candidates = getDivs_withCache(this._size.x, epsilon);
 
       // Дополнительно проверяем с width/base
       candidates.push(this._size.x / base);

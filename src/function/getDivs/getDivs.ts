@@ -13,7 +13,7 @@ export default function getDivs(n: number, e: number = 0): number[] {
    const divs = [1, n];
 
    for (let d = 2; d < lim; d++) {
-      if (n % d <= e) continue;
+      if (n % d > e) continue;
 
       divs.push(d);
       divs.push(n / d);
