@@ -137,6 +137,7 @@ export default class LiveImg {
     */
    private create(): void {
       this._updateRealPixelSize();
+      console.log('Pixel size:', this._basePixelSize, this._realPixelSize);
       this._createGrid();
       this._createPixels();
    }
@@ -185,25 +186,26 @@ export default class LiveImg {
     * перекрытий и выходов за границы
     */
    private _updateRealPixelSize(): void {
-      if (this._basePixelSize <= 3) { 
+      const base = this._basePixelSize;
+
+      if (base <= 3) { 
          // Если размер пикселей пару пикселей, 
          // То небольшие погрешности допустимы
-         this._realPixelSize = this._basePixelSize;
+         this._realPixelSize = base;
          return;
       }
 
-      let size: number;
+      // Максимально-доступное отклонение от идеального совпадения
+      const epsilon = 2;
 
-      if (this._size.x % this._basePixelSize === 0) {
-         size = this._basePixelSize;
-      } else {
-         // TODO: Выбирать наиболее близкий делитель ширины
-         size = this._size.x / this._basePixelSize;
+      if (this._size.x % base <= epsilon) {
+         this._realPixelSize = base;
+         return;
       }
-
-      this._realPixelSize = size;
-
-      //console.log('Pixel size:', this._basePixelSize, this._realPixelSize)
+      
+      const candidates = getDivs_withCache(this._size.x);
+      
+      candidates.push(this._size.x / base);
    }
 
    private _isRendering(): boolean {
