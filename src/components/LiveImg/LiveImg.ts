@@ -203,9 +203,13 @@ export default class LiveImg {
          return;
       }
       
+      // Выбираем из чисел, что делятся на ширину
       const candidates = getDivs_withCache(this._size.x);
-      
+
+      // Дополнительно проверяем с width/base
       candidates.push(this._size.x / base);
+
+      
    }
 
    private _isRendering(): boolean {
