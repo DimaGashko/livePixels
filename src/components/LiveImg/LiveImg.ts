@@ -195,6 +195,7 @@ export default class LiveImg {
       if (this._size.x % this._basePixelSize === 0) {
          size = this._basePixelSize;
       } else {
+         // TODO: Выбирать наиболее близкий делитель ширины
          size = this._size.x / this._basePixelSize;
       }
 
