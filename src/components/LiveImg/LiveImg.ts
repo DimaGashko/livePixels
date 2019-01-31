@@ -1,6 +1,7 @@
 import Vector from '../Vector/Vector';
 import LivePixel from './LivePixel';
 import GameGrid from '../GameGrid/GameGrid';
+import { getDivs_withCache } from '../../function/getDivs/getDivs';
 
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
