@@ -24,7 +24,7 @@ export interface IGameObjectForGrid {
  * @class
  */
 export default class GameGrid<T extends IGameObjectForGrid> {
-   /** Размер сетки (размер массивов) */ 
+   /** Размер сетки (размер массивов) */
    private size: Vector = null
 
    /** Реальные размеры сетки в пикселях */
@@ -33,15 +33,14 @@ export default class GameGrid<T extends IGameObjectForGrid> {
    /** Размеры ячейки в пикселях */
    private cellSize: Vector = null;
 
-   private grid: T[][][] = []; 
+   private grid: T[][][] = [];
    private objectsLen: number = 0;
 
-   constructor(gridSize: Vector, cellSize: Vector) { 
+   constructor(gridSize: Vector, cellSize: Vector) {
       this.realSize = gridSize.copy();
       this.cellSize = cellSize.copy();
 
-      this.size = gridSize.unscale(cellSize);
-
+      this.size = gridSize.unscale(cellSize).floor();
 
       this.init();
    }
@@ -55,7 +54,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
     * 
     * @param object добавляемый объект
     */
-   public add(object: T) { 
+   public add(object: T) {
       const coords = this.getCoordsInGrid(object.coords);
       const prev = object.coordsInGrid;
 
@@ -70,7 +69,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
          // Удаляем объект со старого места
          this.remove(object);
 
-      } 
+      }
 
       object.coordsInGrid = coords;
 
@@ -82,7 +81,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       this.objectsLen++;
    }
 
-   public remove(obj: T) { 
+   public remove(obj: T) {
       if (!obj) return;
 
       const cell = this.getCell(obj.coordsInGrid);
@@ -101,13 +100,13 @@ export default class GameGrid<T extends IGameObjectForGrid> {
     * @param start координаты начала интервала (верхний правый угол)
     * @param size размеры интервала (ширина, высота)
     */
-   public getObjectsOfRange(start: Vector, size: Vector): T[] { 
+   public getObjectsOfRange(start: Vector, size: Vector): T[] {
       const _start = this.getCoordsInGrid(start); // rangeStart in grid
       const _size = this.getCoordsInGrid(size); // rangeSize in grid
 
       const result: T[] = [];
 
-      for (let x = _start.x; x <= _start.x + _size.x; x++) { 
+      for (let x = _start.x; x <= _start.x + _size.x; x++) {
          for (let y = _start.y; y <= _start.y + _size.y; y++) {
             const cell = this.getCell(new Vector(x, y));
             if (!cell) continue;
@@ -125,10 +124,10 @@ export default class GameGrid<T extends IGameObjectForGrid> {
 
                result.push(obj);
             }
-            
+
          }
       }
-      
+
       return result;
    }
 
@@ -136,12 +135,12 @@ export default class GameGrid<T extends IGameObjectForGrid> {
     * Возвращает все объекты находящиеся в сетке
     * (является упрощенным вариантом getObjectsOfRange)
     */
-   public getAllObjects(): T[] { 
+   public getAllObjects(): T[] {
       const result: T[] = new Array(this.objectsLen);
       let index = 0;
 
       for (let x = 0; x < this.size.x; x++) {
-         for (let y = 0; y < this.size.y; y++) { 
+         for (let y = 0; y < this.size.y; y++) {
             const cell = this.getCell(new Vector(x, y));
             if (!cell) continue;
 
@@ -177,7 +176,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       return this.grid[coords.x][coords.y];
    }
 
-   private getCoordsInGrid(coords: Vector) { 
+   private getCoordsInGrid(coords: Vector) {
       let res = coords.unscale(this.cellSize);
 
       res.x = res.x ^ 0;
@@ -186,17 +185,17 @@ export default class GameGrid<T extends IGameObjectForGrid> {
       return res;
    }
 
-   private init() { 
+   private init() {
       this.grid = new Array(this.size.x);
-      
+
       for (let i = 0; i < this.size.x; i++) {
          this.grid[i] = new Array(this.size.y);
 
-         for (let j = 0; j < this.size.y; j++) { 
+         for (let j = 0; j < this.size.y; j++) {
             this.grid[i][j] = [];
          }
       }
 
-   } 
+   }
 
 }

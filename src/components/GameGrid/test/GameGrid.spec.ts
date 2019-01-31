@@ -76,7 +76,7 @@ describe('Class GameGrid', () => {
       const objects = grid.getObjectsOfRange(
          // От {25, 25} до {35, 35}
          new Vector(25, 25), new Vector(10, 10)
-      );
+      );   
 
       expect(objects.length).equal(1);
       expect(objects[0]).equal(obj2);
