@@ -8,6 +8,7 @@ import './styles/LiveImg.sass'
 export interface LiveImgConfig {
    width?: number,
    height?: number,
+   pixelSize?: number,
 }
 
 interface LiveImgElements {
@@ -23,7 +24,7 @@ export default class LiveImg {
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
     */
-   private _basePixelSize: number = 20;
+   private _basePixelSize: number = 10;
 
    /**
     * Реальный размер пикселей. Определяется таким образом, что бы 
@@ -257,6 +258,13 @@ export default class LiveImg {
    private _useConfig(config: LiveImgConfig): void {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
+      if ('pixelSize' in config) this._setPixelSize(config.pixelSize);
+   }
+
+   private _setPixelSize(size: number): void {
+      // TODO: min/max pixel size;
+
+      this._basePixelSize = size;
    }
 
    private _setWidth(val: number): void {
