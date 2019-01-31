@@ -16,7 +16,7 @@ const liveImg = global.img = new LiveImg({
 
 container.appendChild(liveImg.root);
 
-const gui = new dat.GUI({ autoPlace: false });
+const gui = new dat.GUI();
 
 gui.add(liveImg, 'width', 5, window.innerWidth);
 gui.add(liveImg, 'height', 5, window.innerHeight);
