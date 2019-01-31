@@ -189,8 +189,7 @@ export default class LiveImg {
       const base = this._basePixelSize;
 
       if (base <= 3) { 
-         // Если размер пикселей пару пикселей, 
-         // То небольшие погрешности допустимы
+         // Если размер пикселей пару пикселей, небольшие погрешности допустимы
          this._realPixelSize = base;
          return;
       }
@@ -209,7 +208,20 @@ export default class LiveImg {
       // Дополнительно проверяем с width/base
       candidates.push(this._size.x / base);
 
-      
+      // Выбираем число из candidates максимально близкое к base
+      let resSize: number = base;
+      let minDif: number = Infinity;
+
+      candidates.forEach((candidate) => { 
+         const dif = Math.abs(base - candidate);
+
+         if (dif < minDif) {
+            minDif = dif;
+            resSize = candidate;
+         }
+      });
+      console.log(candidates);
+      this._realPixelSize = resSize;
    }
 
    private _isRendering(): boolean {

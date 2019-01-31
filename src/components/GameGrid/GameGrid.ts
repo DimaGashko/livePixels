@@ -186,6 +186,7 @@ export default class GameGrid<T extends IGameObjectForGrid> {
    }
 
    private init() {
+      console.log(this.size);
       this.grid = new Array(this.size.x);
 
       for (let i = 0; i < this.size.x; i++) {

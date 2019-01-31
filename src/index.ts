@@ -8,9 +8,9 @@ const global = <any>window;
 const container = document.querySelector('.live-img');
  
 const liveImg = new LiveImg({
-   width: 360,
+   width: 365,
    height: 400,
-   pixelSize: 5,
+   pixelSize: 50,
 });
 
 container.appendChild(liveImg.root);
