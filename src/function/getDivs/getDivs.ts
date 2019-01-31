@@ -24,6 +24,7 @@ export default function getDivs(n: number): number[] {
    return divs;
 }
 
+/** Объект кэша используемый функцией getDivs */
 const cache: {[n: number]: number[]} = {};
 
 /**
@@ -38,6 +39,6 @@ export function getDivs_withCache(n: number): number[] {
 
    const res = getDivs(n);
    cache[n] = res;
-   
+
    return res;
 }
