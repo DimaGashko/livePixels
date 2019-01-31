@@ -195,7 +195,7 @@ export default class LiveImg {
       }
 
       // Максимально-доступное отклонение от идеального совпадения
-      const epsilon = 4;
+      const epsilon = 2;
 
       if (this._size.x % base <= epsilon) {
          this._realPixelSize = base;
@@ -220,7 +220,7 @@ export default class LiveImg {
             resSize = candidate;
          }
       });
-      console.log(candidates);
+      
       this._realPixelSize = resSize;
    }
 
