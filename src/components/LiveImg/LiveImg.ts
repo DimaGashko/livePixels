@@ -23,7 +23,7 @@ export default class LiveImg {
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
     */
-   private _basePixelSize: number = 21;
+   private _basePixelSize: number = 20;
 
    /**
     * Реальный размер пикселей. Определяется таким образом, что бы 
@@ -153,7 +153,7 @@ export default class LiveImg {
 
    private _createPixels(): void { 
       // По осям должно быть width(height) / pixelSize пикселей
-      const pixelsSize = this._size.div(this._realPixelSize);
+      const pixelsSize = this._size.div(this._realPixelSize).floor();
 
       // А всего пикселей - это их площадь
       const pixelsLen = pixelsSize.x * pixelsSize.y;
@@ -189,7 +189,15 @@ export default class LiveImg {
          this._realPixelSize = this._basePixelSize;
       }
 
-      this._realPixelSize = this._size.x / this._basePixelSize;
+      let size: number;
+
+      if (this._size.x % this._basePixelSize === 0) {
+         size = this._basePixelSize;
+      } else {
+         size = this._size.x / this._basePixelSize;
+      }
+
+      this._realPixelSize = size;
 
       console.log('Pixel size:', this._basePixelSize, this._realPixelSize)
    }

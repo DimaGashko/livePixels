@@ -8,7 +8,7 @@ const global = <any>window;
 const container = document.querySelector('.live-img');
  
 const liveImg = new LiveImg({
-   width: 418,
+   width: 350,
    height: 400,
 });
 

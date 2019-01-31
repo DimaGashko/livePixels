@@ -67,11 +67,19 @@ export default class Vector {
       );
    }
 
-   /** {1.1, 2.8} => {1, 2} */
-   public floor(): Vector { 
+   /** {1.1, 2.8} => {2, 3} */
+   public ceil(): Vector { 
       return new Vector(
-         Math.floor(this.x),
-         Math.floor(this.y)
+         Math.ceil(this.x),
+         Math.ceil(this.y)
+      )
+   }
+
+   /** {1.1, 2.8} => {1, 3} */
+   public round(): Vector { 
+      return new Vector(
+         Math.round(this.x),
+         Math.round(this.y)
       )
    }
 
