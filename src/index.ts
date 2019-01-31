@@ -20,4 +20,4 @@ const gui = new dat.GUI();
 
 gui.add(liveImg, 'width', 5, window.innerWidth);
 gui.add(liveImg, 'height', 5, window.innerHeight);
-gui.add(liveImg, 'pixelSize', 5, window.innerWidth / 2);
+gui.add(liveImg, 'pixelSize', 1, 100);

@@ -177,6 +177,7 @@ export default class LiveImg {
       }
 
       this._pixels = pixels;
+      console.log(pixelsLen);
    }
 
    /** 
@@ -311,6 +312,10 @@ export default class LiveImg {
 
    public get root(): Element | null {
       return this._root;
+   }
+
+   public get pixelSize() {
+      return this._basePixelSize;
    }
 
    /**
