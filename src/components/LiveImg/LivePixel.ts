@@ -42,30 +42,26 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 
-      ctx.save();
       ctx.fillStyle = this.color;
 
       let drawShape = this.drawShape;
 
       if (this.size < 4) drawShape = 'square';
 
+      let x = this.coords.x;
+      let y = this.coords.y;
+      let size = this.size;
+
       if (drawShape === 'circle') { 
-         this._drawCircle(ctx, this.coords.x, this.coords.y, this.size);
+         ctx.beginPath();
+         ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+         ctx.fill();
 
       } else if (drawShape === 'square') {
-            this._drawSquare(ctx, this.coords.x, this.coords.y, this.size);
+         ctx.fillRect(x, y, size, size);
       }
 
-      ctx.restore();
-   }
-
-   private _drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number): void {
-      ctx.beginPath();
-      ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
-      ctx.fill();
-   }
-
-   private _drawSquare(ctx: CanvasRenderingContext2D, x: number, y: number, size: number): void {
-      ctx.fillRect(x, y, size, size);
+      // В этой функции нельзя использовать ctx.save() / ctx.restore();
+      // Так как когда пикселей много эти функции в пару раз снижают fps
    }
 }

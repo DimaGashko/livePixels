@@ -67,6 +67,14 @@ export default class Vector {
       );
    }
 
+   /** {1.1, 2.8} => {1, 2} */
+   public floor(): Vector { 
+      return new Vector(
+         Math.floor(this.x),
+         Math.floor(this.y)
+      )
+   }
+
    public copy(): Vector {
       return new Vector(this.x, this.y);
    }

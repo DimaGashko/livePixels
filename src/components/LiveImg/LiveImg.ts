@@ -12,7 +12,6 @@ export interface LiveImgConfig {
 
 interface LiveImgElements {
    canvas: HTMLCanvasElement | null,
-   [name: string]: Element | null,
 }
 
 export default class LiveImg {
@@ -20,8 +19,24 @@ export default class LiveImg {
    private _maxSize: Vector = new Vector(5000, 5000);
    private _minSize: Vector = new Vector(0, 0);
 
-   private _pixelSize: number = 5;
+   /**
+    * Приблизительный размер пикселей
+    * (реальный размер должен быть максимально близким к нему) 
+    */
+   private _basePixelSize: number = 1;
+
+   /**
+    * Реальный размер пикселей. Определяется таким образом, что бы 
+    * пиксели можно было разместить на картинке без пропусков, перекрытий 
+    * и выходов за границы.
+    * 
+    * Должен быть максимально близким к _basePixelSize
+    */
+   private _realPixelSize: number = null;
+
    private _pixelShape: 'circle' | 'square' = 'circle';
+
+   private _pixels: LivePixel[] = [];
 
    /** Html-контейнер картинки */
    private _root: Element | null = null;
@@ -58,6 +73,7 @@ export default class LiveImg {
       }
 
       this.init();
+      this.create();
       this.startRender();
    }
 
@@ -66,36 +82,6 @@ export default class LiveImg {
       this._getElements();
       this._updateMetrics();
       this._getCtx();
-   }
-
-   public get root(): Element | null {
-      return this._root;
-   }
-
-   public get width(): number {
-      return this._size.x;
-   }
-
-   /**
-    * Устанавливает ширину картинки
-    * (Вызывает перерисовку)
-    */
-   public set width(val: number) {
-      this._setWidth(val);
-      this._updateCanvasSize();
-   }
-
-   public get height(): number {
-      return this._size.y;
-   }
-
-   /**
-    * Устанавливает высоту картинки
-    * (Вызывает перерисовку) 
-    */
-   public set height(val: number) {
-      this._setHeight(val);
-      this._updateCanvasSize();
    }
 
    private startRender(): void {
@@ -130,7 +116,74 @@ export default class LiveImg {
    }
 
    private draw(frameTime: number, time: number): void {
+      const ctx = this.ctx;
+
+      for (let i = this._pixels.length - 1; i >= 0; i--) {
+         const pixel = this._pixels[i];
+         pixel.draw(ctx, frameTime, time);
+         /*ctx.fillRect(
+            pixel.coords.x, pixel.coords.y,
+            pixel.size, pixel.size
+         );*/
+      }
+   }
+
+   /**
+    * Создает картинку (сетку, пиксели...)
+    *
+    * Старые объекты удаляются 
+    */
+   private create(): void {
+      this._updateRealPixelSize();
+      this._createGrid();
+      this._createPixels();
+   }
+
+   /**
+    * Создает сетку с пикселями. Если она уже была создана 
+    * она удаляется (вместе со старыми пикселями)
+    */
+   private _createGrid(): void { 
+      const pixelS = this._realPixelSize;
+
+      this._grid = new GameGrid(
+         this._size, new Vector(pixelS, pixelS)
+      );
+   }
+
+   private _createPixels(): void { 
+      // По осям должно быть width(height) / pixelSize пикселей
+      const pixelsSize = this._size.div(this._realPixelSize);
+
+      // А всего пикселей - это их площадь
+      const pixelsLen = pixelsSize.x * pixelsSize.y;
+
+      const pixels = new Array(pixelsLen);
+
+      for (let i = 0; i < pixelsLen; i++) { 
+         const pixel = new LivePixel();
+
+         pixel.size = this._realPixelSize;
+         pixel.drawShape = this._pixelShape;
       
+         pixel.coords = new Vector(
+            i % pixelsSize.x, (i / pixelsSize.x) ^ 0
+         ).mul(this._realPixelSize);
+
+         pixels[i] = pixel;
+      }
+
+      this._pixels = pixels;
+   }
+
+   /** 
+    * Пересчитывает окончательные размеры (_realPixelSize) пикселей так, 
+    * что бы они были максимально близкими к _basePixelSize и при этом, что бы 
+    * пиксели можно было разместить на картинке без пропусков, 
+    * перекрытий и выходов за границы
+    */
+   private _updateRealPixelSize(): void {
+      this._realPixelSize = this._basePixelSize;
    }
 
    private _isRendering(): boolean {
@@ -210,5 +263,35 @@ export default class LiveImg {
       }
 
       return frameTime;
+   }
+
+   public get root(): Element | null {
+      return this._root;
+   }
+
+   public get width(): number {
+      return this._size.x;
+   }
+
+   /**
+    * Устанавливает ширину картинки
+    * (Вызывает перерисовку)
+    */
+   public set width(val: number) {
+      this._setWidth(val);
+      this._updateCanvasSize();
+   }
+
+   public get height(): number {
+      return this._size.y;
+   }
+
+   /**
+    * Устанавливает высоту картинки
+    * (Вызывает перерисовку) 
+    */
+   public set height(val: number) {
+      this._setHeight(val);
+      this._updateCanvasSize();
    }
 }
