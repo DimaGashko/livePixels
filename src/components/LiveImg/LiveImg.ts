@@ -188,6 +188,7 @@ export default class LiveImg {
          // Если размер пикселей пару пикселей, 
          // То небольшие погрешности допустимы
          this._realPixelSize = this._basePixelSize;
+         return;
       }
 
       let size: number;
@@ -264,7 +265,7 @@ export default class LiveImg {
 
    private _setPixelSize(size: number): void {
       // TODO: min/max pixel size;
-
+      // TODO: разделить на два метода, один из которых перерисовывает картинку
       this._basePixelSize = size;
    }
 
