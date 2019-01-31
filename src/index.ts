@@ -10,7 +10,7 @@ const container = document.querySelector('.live-img');
 const liveImg = new LiveImg({
    width: 365,
    height: 400,
-   pixelSize: 50,
+   pixelSize: 20,
 });
 
 container.appendChild(liveImg.root);

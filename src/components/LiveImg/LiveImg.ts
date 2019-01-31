@@ -280,11 +280,10 @@ export default class LiveImg {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
       if ('pixelSize' in config) this._setPixelSize(config.pixelSize);
-   }
+   }   
 
    private _setPixelSize(size: number): void {
       // TODO: min/max pixel size;
-      // TODO: разделить на два метода, один из которых перерисовывает картинку
       this._basePixelSize = size;
    }
 
@@ -314,17 +313,29 @@ export default class LiveImg {
       return this._root;
    }
 
+   /**
+    * Устанавливает размер пикселя (ожидаемый, базовый) 
+    * 
+    * **Провоцирует перепостроение картинки**
+    */
+   public set pixelSize(val: number) {
+      this._setPixelSize(val);
+      this.create();
+   }
+
    public get width(): number {
       return this._size.x;
    }
 
    /**
     * Устанавливает ширину картинки
-    * (Вызывает перерисовку)
+    * 
+    * **Провоцирует перепостроение картинки**
     */
    public set width(val: number) {
       this._setWidth(val);
       this._updateCanvasSize();
+      this.create();
    }
 
    public get height(): number {
@@ -333,10 +344,12 @@ export default class LiveImg {
 
    /**
     * Устанавливает высоту картинки
-    * (Вызывает перерисовку) 
+    * 
+    * **Провоцирует перепостроение картинки** 
     */
    public set height(val: number) {
       this._setHeight(val);
       this._updateCanvasSize();
+      this.create();
    }
 }
