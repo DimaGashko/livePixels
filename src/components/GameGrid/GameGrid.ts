@@ -37,8 +37,8 @@ export default class GameGrid<T extends IGameObjectForGrid> {
    private objectsLen: number = 0;
 
    constructor(gridSize: Vector, cellSize: Vector) {
-      this.realSize = gridSize.copy();
-      this.cellSize = cellSize.copy();
+      this.realSize = gridSize.floor();
+      this.cellSize = cellSize.floor();
 
       this.size = gridSize.unscale(cellSize).floor();
 

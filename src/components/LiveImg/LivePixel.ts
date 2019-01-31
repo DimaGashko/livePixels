@@ -46,7 +46,7 @@ export default class LivePixel implements IGameObjectForGrid {
 
       let drawShape = this.drawShape;
 
-      if (this.size < 4) drawShape = 'square';
+      if (this.size < 5) drawShape = 'square';
 
       let x = this.coords.x;
       let y = this.coords.y;

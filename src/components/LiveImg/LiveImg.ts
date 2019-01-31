@@ -23,7 +23,7 @@ export default class LiveImg {
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
     */
-   private _basePixelSize: number = 1;
+   private _basePixelSize: number = 21;
 
    /**
     * Реальный размер пикселей. Определяется таким образом, что бы 
@@ -183,7 +183,15 @@ export default class LiveImg {
     * перекрытий и выходов за границы
     */
    private _updateRealPixelSize(): void {
-      this._realPixelSize = this._basePixelSize;
+      if (this._basePixelSize <= 3) { 
+         // Если размер пикселей пару пикселей, 
+         // То небольшие погрешности допустимы
+         this._realPixelSize = this._basePixelSize;
+      }
+
+      this._realPixelSize = this._size.x / this._basePixelSize;
+
+      console.log('Pixel size:', this._basePixelSize, this._realPixelSize)
    }
 
    private _isRendering(): boolean {
