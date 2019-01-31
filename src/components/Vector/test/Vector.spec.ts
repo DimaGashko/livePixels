@@ -95,6 +95,27 @@ describe('Class Vector', () => {
          expect(res.y).equal(5);
       });
 
+      it('floor()', () => { 
+         const res = new Vector(1.1, 2.8).floor();
+
+         expect(res.x).equal(1);
+         expect(res.y).equal(2);
+      });
+
+      it('ceil()', () => { 
+         const res = new Vector(1.1, 2.8).ceil();
+
+         expect(res.x).equal(2);
+         expect(res.y).equal(3);
+      });
+
+      it('round()', () => { 
+         const res = new Vector(1.1, 2.8).round();
+
+         expect(res.x).equal(1);
+         expect(res.y).equal(3);
+      });
+
       it('copy() возвращает новый вектор', () => { 
          const v1 = new Vector(1, 2);
          const res = v1.copy();

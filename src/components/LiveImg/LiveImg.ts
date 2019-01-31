@@ -199,7 +199,7 @@ export default class LiveImg {
 
       this._realPixelSize = size;
 
-      console.log('Pixel size:', this._basePixelSize, this._realPixelSize)
+      //console.log('Pixel size:', this._basePixelSize, this._realPixelSize)
    }
 
    private _isRendering(): boolean {
