@@ -12,6 +12,7 @@ const liveImg = global.img = new LiveImg({
    width: 365,
    height: 400,
    pixelSize: 20,
+   pixelShape: 'circle',
 });
 
 container.appendChild(liveImg.root);
@@ -21,3 +22,4 @@ const gui = new dat.GUI();
 gui.add(liveImg, 'width', 5, window.innerWidth);
 gui.add(liveImg, 'height', 5, window.innerHeight);
 gui.add(liveImg, 'pixelSize', 1, 100);
+gui.add(liveImg, 'pixelShape', ['circle', 'square']);

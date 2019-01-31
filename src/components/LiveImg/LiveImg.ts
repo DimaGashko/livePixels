@@ -1,5 +1,5 @@
 import Vector from '../Vector/Vector';
-import LivePixel from './LivePixel';
+import LivePixel, { livePixelShape } from './LivePixel';
 import GameGrid from '../GameGrid/GameGrid';
 import { getDivs_withCache } from '../../function/getDivs/getDivs';
 
@@ -10,6 +10,7 @@ export interface LiveImgConfig {
    width?: number,
    height?: number,
    pixelSize?: number,
+   pixelShape?: livePixelShape,
 }
 
 interface LiveImgElements {
@@ -36,7 +37,7 @@ export default class LiveImg {
     */
    private _realPixelSize: number = null;
 
-   private _pixelShape: 'circle' | 'square' = 'circle';
+   private _pixelShape: livePixelShape = 'circle';
 
    private _pixels: LivePixel[] = [];
 
@@ -167,7 +168,7 @@ export default class LiveImg {
          const pixel = new LivePixel();
 
          pixel.size = this._realPixelSize;
-         pixel.drawShape = this._pixelShape;
+         pixel.shape = this._pixelShape;
       
          pixel.coords = new Vector(
             i % pixelsSize.x, (i / pixelsSize.x) ^ 0
@@ -225,6 +226,13 @@ export default class LiveImg {
       this._realPixelSize = resSize;
    }
 
+   /** Устанавливает всем пикселям текущую форму */
+   private updatePixelShape() { 
+      this._pixels.forEach((pixel) => {
+         pixel.shape = this.pixelShape
+      });
+   }
+   
    private _isRendering(): boolean {
       return this._frameId !== 0;
    }
@@ -281,7 +289,12 @@ export default class LiveImg {
       if ('width' in config) this._setWidth(config.width);
       if ('height' in config) this._setHeight(config.height);
       if ('pixelSize' in config) this._setPixelSize(config.pixelSize);
+      if ('pixelShape' in config) this._setPixelShape(config.pixelShape);
    }   
+
+   private _setPixelShape(shape: livePixelShape): void {
+      this._pixelShape = shape;
+   }
 
    private _setPixelSize(size: number): void {
       // TODO: min/max pixel size;
@@ -326,6 +339,18 @@ export default class LiveImg {
    public set pixelSize(val: number) {
       this._setPixelSize(val);
       this.create();
+   }
+
+   public get pixelShape() {
+      return this._pixelShape;
+   }
+
+   /**
+    * Устанавливает форму пикселя
+    */
+   public set pixelShape(val: livePixelShape) {
+      this._setPixelShape(val);
+      this.updatePixelShape();
    }
 
    public get width(): number {

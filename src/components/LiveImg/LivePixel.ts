@@ -1,6 +1,8 @@
 import Vector from "../Vector/Vector";
 import { IGameObjectForGrid } from "../GameGrid/GameGrid";
 
+export type livePixelShape = 'circle' | 'square';
+
 export default class LivePixel implements IGameObjectForGrid {
    public size: number = 5;
 
@@ -31,7 +33,7 @@ export default class LivePixel implements IGameObjectForGrid {
 
    public color: string = '#FB8C00';
 
-   public drawShape: 'circle' | 'square' = 'circle';
+   public shape: livePixelShape = 'circle';
 
    constructor() { 
 
@@ -44,20 +46,20 @@ export default class LivePixel implements IGameObjectForGrid {
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 
       ctx.fillStyle = this.color;
 
-      let drawShape = this.drawShape;
+      let shape = this.shape;
 
-      if (this.size < 5) drawShape = 'square';
+      if (this.size < 5) shape = 'square';
 
       let x = this.coords.x;
       let y = this.coords.y;
       let size = this.size;
 
-      if (drawShape === 'circle') { 
+      if (shape === 'circle') { 
          ctx.beginPath();
          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
          ctx.fill();
 
-      } else if (drawShape === 'square') {
+      } else if (shape === 'square') {
          ctx.fillRect(x, y, size, size);
       }
 
