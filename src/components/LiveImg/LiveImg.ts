@@ -152,6 +152,8 @@ export default class LiveImg {
 
       this._createGrid();
       this._createPixels();
+
+      this.useImg();
    }
 
    /**
@@ -246,6 +248,56 @@ export default class LiveImg {
       this._pixels.forEach((pixel) => {
          pixel.shape = this.pixelShape
       });
+   }
+
+   /**
+    * Применяет картинку this._img к текущим пикселям
+    */
+   private useImg(): void {
+      if (!this._img) return;
+
+      this.getPixelColors();
+   }
+
+   /**
+    * Возвращает массив цветов пикселей 
+    * TODO: дописать комментарий 
+    */
+   private getPixelColors(): string[] { 
+      const allPixels = this.getImgPixels();
+
+      return [];
+   }
+
+   /**
+    * Возвращает массив реальных пикселей картинки
+    * возвращаются пиксели не this._img, а пиксели канваса, с 
+    * размерами this._size и нарисованной на нем this._img
+    */
+   private getImgPixels(): number[] { 
+      // Create temporary canvas
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const bgColor = '#000';
+
+      canvas.width = this._size.x;
+      canvas.height = this._size.y;
+
+      ctx.fillStyle = bgColor
+      ctx.fillRect(0, 0, this._size.x, this._size.y);
+
+      // Draw the image
+      ctx.drawImage(this._img, 0, 0);
+
+      document.body.appendChild(canvas);
+      canvas.style.cssText = `
+         position: absolute;
+         left: 50%; top: 50%;
+         transform: translate(-50%, -50%);
+         z-index: 2;
+      `;
+
+      return [];
    }
 
    private _isRendering(): boolean {
@@ -365,8 +417,7 @@ export default class LiveImg {
     */
    public setImg(img: HTMLImageElement) { 
       this._setImg(img);
-      console.log('image');
-      //this.useImg();
+      this.useImg();
    }
 
    /**
