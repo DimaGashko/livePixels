@@ -5,6 +5,7 @@ import { getDivs_withCache } from '../../function/getDivs/getDivs';
 
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
+import canvasImgFill from '../../function/canvasImgFill';
 
 export interface LiveImgConfig {
    width?: number,
@@ -289,41 +290,7 @@ export default class LiveImg {
       // Draw the image
       //TODO: реализовать возможность выбора рисования как bg-size: cover 
 
-      const imgSize = new Vector(
-         this._img.naturalWidth, this._img.naturalHeight,
-      );
-
-      const imgRatio = imgSize.x / imgSize.y;
-      const liveImgRatio = this._size.x / this._size.y;
-
-      let dw = imgSize.x;
-      let dh = imgSize.y;
-
-      if (dw > this._size.x) {
-         dw = this._size.x;
-         dh = dw / imgRatio;
-
-         if (dh > this._size.y) {
-            dh = this._size.y;
-            dw = dh * imgRatio;
-         }
-      }
-
-      else if (dh > this._size.y) {
-         dh = this._size.y;
-         dw = dh * imgRatio;
-
-         if (dw > this._size.x) {
-            dw = this._size.x;
-            dh = dw / imgRatio;
-         }
-      }
-
-      ctx.drawImage(this._img,
-         this._size.x / 2 - dw / 2,
-         this._size.y / 2 - dh / 2,
-         dw, dh
-      );
+      canvasImgFill(this.ctx, this._img, "center");
 
       document.body.appendChild(canvas);
       canvas.style.cssText = `
