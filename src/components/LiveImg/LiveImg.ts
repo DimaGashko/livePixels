@@ -275,6 +275,7 @@ export default class LiveImg {
     * размерами this._size и нарисованной на нем this._img
     */
    private getImgPixels(): number[] {
+      return; //In test branch
       // Create temporary canvas
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
