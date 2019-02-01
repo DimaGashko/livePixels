@@ -9,6 +9,11 @@ const container = document.querySelector('.live-img');
 
 const gui = new dat.GUI();
 
+const imgSources = {
+   "2019": "https://bestcube.space/wp-content/uploads/22.jpg",
+   "flower": "https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg",
+};
+
 const liveImg = global.img = new LiveImg({
    width: 365,
    height: 400,
