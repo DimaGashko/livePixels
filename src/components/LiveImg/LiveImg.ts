@@ -263,7 +263,7 @@ export default class LiveImg {
     * Возвращает массив цветов пикселей 
     * TODO: дописать комментарий 
     */
-   private getPixelColors(): string[] { 
+   private getPixelColors(): string[] {
       const allPixels = this.getImgPixels();
 
       return [];
@@ -274,7 +274,7 @@ export default class LiveImg {
     * возвращаются пиксели не this._img, а пиксели канваса, с 
     * размерами this._size и нарисованной на нем this._img
     */
-   private getImgPixels(): number[] { 
+   private getImgPixels(): number[] {
       // Create temporary canvas
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -287,7 +287,43 @@ export default class LiveImg {
       ctx.fillRect(0, 0, this._size.x, this._size.y);
 
       // Draw the image
-      ctx.drawImage(this._img, 0, 0);
+      //TODO: реализовать возможность выбора рисования как bg-size: cover 
+
+      const imgSize = new Vector(
+         this._img.naturalWidth, this._img.naturalHeight,
+      );
+
+      const imgRatio = imgSize.x / imgSize.y;
+      const liveImgRatio = this._size.x / this._size.y;
+
+      let dw = imgSize.x;
+      let dh = imgSize.y;
+
+      if (dw > this._size.x) {
+         dw = this._size.x;
+         dh = dw / imgRatio;
+
+         if (dh > this._size.y) {
+            dh = this._size.y;
+            dw = dh * imgRatio;
+         }
+      }
+
+      else if (dh > this._size.y) {
+         dh = this._size.y;
+         dw = dh * imgRatio;
+
+         if (dw > this._size.x) {
+            dw = this._size.x;
+            dh = dw / imgRatio;
+         }
+      }
+
+      ctx.drawImage(this._img,
+         this._size.x / 2 - dw / 2,
+         this._size.y / 2 - dh / 2,
+         dw, dh
+      );
 
       document.body.appendChild(canvas);
       canvas.style.cssText = `
@@ -391,7 +427,7 @@ export default class LiveImg {
     * @param img картинка
     * (просто устанавливает свойство)
     */
-   private _setImg(img: HTMLImageElement) { 
+   private _setImg(img: HTMLImageElement) {
       this._img = img;
    }
 
@@ -415,7 +451,7 @@ export default class LiveImg {
     * Устанавливает картинку, которую пиксели будут имитировать
     * @param img картинка
     */
-   public setImg(img: HTMLImageElement) { 
+   public setImg(img: HTMLImageElement) {
       this._setImg(img);
       this.useImg();
    }

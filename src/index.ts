@@ -13,6 +13,7 @@ const imgSources = {
    'year2019': require('./img/examples/2019.jpg'),
    'flower': require('./img/examples/flower.jpg'),
    'girl': require('./img/examples/girl.jpg'),
+   'girl2': require('./img/examples/girl2.jpg'),
    'cat': require('./img/examples/cat.jpg'),
    'shark': require('./img/examples/shark.png'),
    'masons': require('./img/examples/masons.png'),
@@ -20,6 +21,9 @@ const imgSources = {
    'eye': require('./img/examples/eye.jpg'),
    'pixelOwl': require('./img/examples/pixelOwl.webp'),
    'glitch': require('./img/examples/glitch.jpg'),
+   'mask': require('./img/examples/mask.jpg'),
+   'darwin': require('./img/examples/darwin.jpg'),
+   'child': require('./img/examples/child.jpg'), 
 };
 
 const liveImg = global.img = new LiveImg({
