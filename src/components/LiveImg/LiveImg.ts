@@ -7,6 +7,8 @@ import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
 import canvasImgFill from '../../function/canvasImgFill';
 
+type FillType = 'center' | 'cover';
+
 export interface LiveImgConfig {
    width?: number,
    height?: number,
@@ -25,6 +27,8 @@ export default class LiveImg {
 
    // Имитируемая картинка (картинка уже должна быть загруженной)
    private _img: HTMLImageElement = null;
+
+   private _fillType: FillType = 'center';
 
    /**
     * Приблизительный размер пикселей
@@ -288,9 +292,7 @@ export default class LiveImg {
       ctx.fillRect(0, 0, this._size.x, this._size.y);
 
       // Draw the image
-      //TODO: реализовать возможность выбора рисования как bg-size: cover 
-
-      canvasImgFill(ctx, this._img, 'cover');      
+      canvasImgFill(ctx, this._img, this._fillType);      
 
       document.body.appendChild(canvas);
       canvas.style.cssText = `
@@ -398,6 +400,15 @@ export default class LiveImg {
       this._img = img;
    }
 
+   /**
+    * Устанавливает тип рисования картинки
+    * @param val тип
+    * (просто устанавливает свойство)
+    */
+   private _setFillType(val: FillType) {
+      this._fillType = val;
+   }
+
    private _correctFrameTime(frameTime: number): number {
       if (frameTime > this._MAX_FRAME_TIME) {
          frameTime = this._MAX_FRAME_TIME;
@@ -435,6 +446,18 @@ export default class LiveImg {
 
    public get pixelShape() {
       return this._pixelShape;
+   }
+
+   /**
+    * Устанавливает тип рисования картинки
+    */
+   public set fillType(val: FillType) {
+      this._setFillType(val);
+      this.useImg();
+   }
+
+   public get fillType() {
+      return this._fillType;
    }
 
    /**

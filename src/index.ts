@@ -23,7 +23,6 @@ const imgSources = {
    'glitch': require('./img/examples/glitch.jpg'),
    'mask': require('./img/examples/mask.jpg'),
    'darwin': require('./img/examples/darwin.jpg'),
-   'child': require('./img/examples/child.jpg'), 
 };
 
 const liveImg = global.img = new LiveImg({
@@ -47,6 +46,7 @@ setImg(imgSources.sea);
    const pixelSize = gui.add(liveImg, 'pixelSize', 1, 100);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
    const images = gui.add(config, 'img', imgSources);
+   const fillType = gui.add(liveImg, 'fillType', ['center', 'cover']);
 
    window.addEventListener('resize', () => {
       width.max(window.innerWidth).updateDisplay();
