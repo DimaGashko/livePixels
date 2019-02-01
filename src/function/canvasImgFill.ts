@@ -4,7 +4,18 @@ type CTX = CanvasRenderingContext2D;
 type IMG = HTMLImageElement;
 type TYPE = 'center' | 'cover';
 
-export default function canvasImgFill(ctx: CTX, img: IMG, type: TYPE): void {
+/**
+ * Рисует картинку на переданном канвасе (на весь канвас).
+ * Может рисовать различными методами:
+ * - `type = 'center'`: рисует картинку по центру, если картинка больше 
+ * канваса она уменьшается до его размеров (при этом сверху/снизу или по 
+ * бокам могут быть пропуски)
+ * - `type = 'cover'`: рисует картинка эмитируя background-size: cover
+ * @param ctx CanvasRenderingContext2D
+ * @param img картинка
+ * @param type тип размещения картинки
+ */
+export default function canvasImgFill(ctx: CTX, img: IMG, type: TYPE = 'center'): void {
    if (!(type in fillMethods)) {
       throw SyntaxError('Wrong fill type');
    }
