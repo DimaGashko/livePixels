@@ -118,7 +118,7 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void {
-      
+
    }
 
    private draw(frameTime: number, time: number): void {
@@ -155,7 +155,7 @@ export default class LiveImg {
     * Создает сетку с пикселями. Если она уже была создана 
     * она удаляется (вместе со старыми пикселями)
     */
-   private _createGrid(): void { 
+   private _createGrid(): void {
       const pixelS = this._realPixelSize;
 
       this._grid = new GameGrid(
@@ -163,7 +163,7 @@ export default class LiveImg {
       );
    }
 
-   private _createPixels(): void { 
+   private _createPixels(): void {
       // По осям должно быть width(height) / pixelSize пикселей
       const pixelsSize = this._size.div(this._realPixelSize).ceil();
 
@@ -172,12 +172,12 @@ export default class LiveImg {
 
       const pixels = new Array(pixelsLen);
 
-      for (let i = 0; i < pixelsLen; i++) { 
+      for (let i = 0; i < pixelsLen; i++) {
          const pixel = new LivePixel();
 
          pixel.size = this._realPixelSize;
          pixel.shape = this._pixelShape;
-      
+
          pixel.coords = new Vector(
             i % pixelsSize.x, (i / pixelsSize.x) ^ 0
          ).mul(this._realPixelSize);
@@ -198,7 +198,7 @@ export default class LiveImg {
    private _updateRealPixelSize(): void {
       const base = this._basePixelSize;
 
-      if (base <= 3) { 
+      if (base <= 3) {
          // Если размер пикселей пару пикселей, небольшие погрешности допустимы
          this._realPixelSize = base;
          return;
@@ -211,7 +211,7 @@ export default class LiveImg {
          this._realPixelSize = base;
          return;
       }
-      
+
       // Выбираем из чисел, что делятся на ширину
       const candidates = getDivs_withCache(this._size.x, epsilon);
 
@@ -222,7 +222,7 @@ export default class LiveImg {
       let resSize: number = base;
       let minDif: number = Infinity;
 
-      candidates.forEach((candidate) => { 
+      candidates.forEach((candidate) => {
          const dif = Math.abs(base - candidate);
 
          if (dif < minDif) {
@@ -234,17 +234,17 @@ export default class LiveImg {
       if (resSize <= 1) {
          resSize = 1;
       }
-      
+
       this._realPixelSize = resSize;
    }
 
    /** Устанавливает всем пикселям текущую форму */
-   private updatePixelShape() { 
+   private updatePixelShape() {
       this._pixels.forEach((pixel) => {
          pixel.shape = this.pixelShape
       });
    }
-   
+
    private _isRendering(): boolean {
       return this._frameId !== 0;
    }
@@ -302,7 +302,7 @@ export default class LiveImg {
       if ('height' in config) this._setHeight(config.height);
       if ('pixelSize' in config) this._setPixelSize(config.pixelSize);
       if ('pixelShape' in config) this._setPixelShape(config.pixelShape);
-   }   
+   }
 
    private _setPixelShape(shape: livePixelShape): void {
       this._pixelShape = shape;
