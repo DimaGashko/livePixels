@@ -42,11 +42,15 @@ setImg(imgSources.sea);
    const height = gui.add(liveImg, 'height', 5, window.innerHeight);
    const pixelSize = gui.add(liveImg, 'pixelSize', 1, 100);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
-   const imgs = gui.add(config, 'img', imgSources);
+   const images = gui.add(config, 'img', imgSources);
 
    window.addEventListener('resize', () => {
       width.max(window.innerWidth).updateDisplay();
       height.max(window.innerHeight).updateDisplay();
+   });
+
+   images.onChange(() => { 
+      setImg(config.img);
    });
 
 }());
@@ -54,7 +58,7 @@ setImg(imgSources.sea);
 function setImg(src: string): void {
    const img = new Image();
 
-   img.addEventListener('onload', () => {
+   img.addEventListener('load', () => {
       liveImg.setImg(img);
    });
 
