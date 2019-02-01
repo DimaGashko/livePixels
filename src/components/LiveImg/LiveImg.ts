@@ -37,6 +37,9 @@ export default class LiveImg {
     */
    private _realPixelSize: number = null;
 
+   /** В каких пределах может быть размер пикселей */
+   private _pixelSizeRange: Vector = new Vector(1, 250);
+
    private _pixelShape: livePixelShape = 'circle';
 
    private _pixels: LivePixel[] = [];
@@ -222,6 +225,10 @@ export default class LiveImg {
             resSize = candidate;
          }
       });
+
+      if (resSize <= 1) {
+         resSize = 1;
+      }
       
       this._realPixelSize = resSize;
    }
@@ -297,7 +304,11 @@ export default class LiveImg {
    }
 
    private _setPixelSize(size: number): void {
-      // TODO: min/max pixel size;
+      const range = this._pixelSizeRange;
+
+      if (size < range.x) size = range.x;
+      else if (size > range.y) size = range.y;
+
       this._basePixelSize = size;
    }
 

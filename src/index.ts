@@ -6,7 +6,7 @@ import './styles/index.sass';
 
 const global = <any>window;
 const container = document.querySelector('.live-img');
- 
+
 const gui = new dat.GUI();
 
 const liveImg = global.img = new LiveImg({
@@ -19,11 +19,11 @@ const liveImg = global.img = new LiveImg({
 container.appendChild(liveImg.root);
 
 (function initGui() {
-   const width = gui.add(liveImg, 'width', 5, window.innerWidth);
-   const height = gui.add(liveImg, 'height', 5, window.innerHeight);
-   const pixelSize = gui.add(liveImg, 'pixelSize', 1, 100);
+   const width = gui.add(liveImg, 'width', 5, window.innerWidth).listen();
+   const height = gui.add(liveImg, 'height', 5, window.innerHeight).listen();
+   const pixelSize = gui.add(liveImg, 'pixelSize', 1, 100).listen();
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
-   
+
    window.addEventListener('resize', () => {
       width.max(window.innerWidth);
       height.max(window.innerHeight);
@@ -31,5 +31,11 @@ container.appendChild(liveImg.root);
       width.updateDisplay();
       height.updateDisplay();
    });
+
+   setInterval(() => { 
+      liveImg.width = (Math.random() * window.innerWidth) ^ 0;
+      liveImg.height = (Math.random() * window.innerHeight) ^ 0;
+      liveImg.pixelSize = (Math.random() * 100) ^ 0;
+   }, 100);
 
 }());
