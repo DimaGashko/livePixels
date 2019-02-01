@@ -141,7 +141,12 @@ export default class LiveImg {
     */
    private create(): void {
       this._updateRealPixelSize();
-      console.log('Pixel size:', this._basePixelSize, this._realPixelSize);
+
+      console.log(
+         'Pixel size:', this._basePixelSize,
+         'real:', +this._realPixelSize.toFixed(2)
+      );
+
       this._createGrid();
       this._createPixels();
    }
@@ -181,7 +186,7 @@ export default class LiveImg {
       }
 
       this._pixels = pixels;
-      console.log(pixelsLen);
+      console.log('Pixels count', pixelsLen);
    }
 
    /** 

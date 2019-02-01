@@ -32,10 +32,4 @@ container.appendChild(liveImg.root);
       height.updateDisplay();
    });
 
-   setInterval(() => { 
-      liveImg.width = (Math.random() * window.innerWidth) ^ 0;
-      liveImg.height = (Math.random() * window.innerHeight) ^ 0;
-      liveImg.pixelSize = (Math.random() * 100) ^ 0;
-   }, 100);
-
 }());
