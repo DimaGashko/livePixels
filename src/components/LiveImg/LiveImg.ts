@@ -22,6 +22,9 @@ export default class LiveImg {
    private _maxSize: Vector = new Vector(5000, 5000);
    private _minSize: Vector = new Vector(0, 0);
 
+   // Имитируемая картинка (картинка уже должна быть загруженной)
+   private _img: HTMLImageElement = null;
+
    /**
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
@@ -331,6 +334,15 @@ export default class LiveImg {
       this._size.y = val;
    }
 
+   /**
+    * Устанавливает картинку, которую пиксели будут имитировать
+    * @param img картинка
+    * (просто устанавливает свойство)
+    */
+   private _setImg(img: HTMLImageElement) { 
+      this._img = img;
+   }
+
    private _correctFrameTime(frameTime: number): number {
       if (frameTime > this._MAX_FRAME_TIME) {
          frameTime = this._MAX_FRAME_TIME;
@@ -345,6 +357,16 @@ export default class LiveImg {
 
    public get pixelSize() {
       return this._basePixelSize;
+   }
+
+   /**
+    * Устанавливает картинку, которую пиксели будут имитировать
+    * @param img картинка
+    */
+   public setImg(img: HTMLImageElement) { 
+      this._setImg(img);
+      console.log('image');
+      //this.useImg();
    }
 
    /**

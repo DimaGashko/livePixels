@@ -10,7 +10,7 @@ const container = document.querySelector('.live-img');
 const gui = new dat.GUI();
 
 const imgSources = {
-   '2019': require('./img/examples/2019.jpg'),
+   'year2019': require('./img/examples/2019.jpg'),
    'flower': require('./img/examples/flower.jpg'),
    'girl': require('./img/examples/girl.jpg'),
    'cat': require('./img/examples/cat.jpg'),
@@ -31,11 +31,18 @@ const liveImg = global.img = new LiveImg({
 
 container.appendChild(liveImg.root);
 
+setImg(imgSources.sea);
+
 (function initGui() {
+   const config = {
+      img: imgSources.sea,
+   }
+
    const width = gui.add(liveImg, 'width', 5, window.innerWidth);
    const height = gui.add(liveImg, 'height', 5, window.innerHeight);
    const pixelSize = gui.add(liveImg, 'pixelSize', 1, 100);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
+   const imgs = gui.add(config, 'img', imgSources);
 
    window.addEventListener('resize', () => {
       width.max(window.innerWidth).updateDisplay();
@@ -43,3 +50,13 @@ container.appendChild(liveImg.root);
    });
 
 }());
+
+function setImg(src: string): void {
+   const img = new Image();
+
+   img.addEventListener('onload', () => {
+      liveImg.setImg(img);
+   });
+
+   img.src = src;
+}
