@@ -269,7 +269,8 @@ export default class LiveImg {
     * TODO: дописать комментарий 
     */
    private getPixelColors(): string[] {
-      const allPixels = this.getImgPixels();
+      const imgPixels = this.getImgPixels();
+      console.log(imgPixels);
 
       return [];
    }
@@ -279,8 +280,7 @@ export default class LiveImg {
     * возвращаются пиксели не this._img, а пиксели канваса, с 
     * размерами this._size и нарисованной на нем this._img
     */
-   private getImgPixels(): number[] {
-      // Create temporary canvas
+   private getImgPixels(): ImageData {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const bgColor = '#000';
@@ -291,18 +291,9 @@ export default class LiveImg {
       ctx.fillStyle = bgColor
       ctx.fillRect(0, 0, this._size.x, this._size.y);
 
-      // Draw the image
       canvasImgFill(ctx, this._img, this._fillType);      
 
-      document.body.appendChild(canvas);
-      canvas.style.cssText = `
-         position: absolute;
-         left: 50%; top: 50%;
-         transform: translate(-50%, -50%);
-         z-index: 2;
-      `;
-
-      return [];
+      return ctx.getImageData(0, 0, this._size.x, this._size.y);
    }
 
    private _isRendering(): boolean {
