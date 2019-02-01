@@ -290,7 +290,7 @@ export default class LiveImg {
       // Draw the image
       //TODO: реализовать возможность выбора рисования как bg-size: cover 
 
-      canvasImgFill(this.ctx, this._img, "center");
+      canvasImgFill(ctx, this._img, 'center');      
 
       document.body.appendChild(canvas);
       canvas.style.cssText = `

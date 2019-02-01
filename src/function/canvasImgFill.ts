@@ -17,8 +17,8 @@ const fillMethods: { [type: string]: (ctx: CTX, img: IMG) => void } = {
    center: function(ctx: CTX, img: IMG) {
       const canvasSize = new Vector(ctx.canvas.width, ctx.canvas.height);
       const imgSize = new Vector(img.naturalWidth, img.naturalHeight);
-      const ratio = canvasSize.x / canvasSize.y;
-   
+      const ratio = imgSize.x / imgSize.y;
+
       let dw = imgSize.x;
       let dh = imgSize.y;
    
@@ -47,12 +47,10 @@ const fillMethods: { [type: string]: (ctx: CTX, img: IMG) => void } = {
          canvasSize.y / 2 - dh / 2,
          dw, dh
       );
+   },
+
+   cover: function (ctx: CTX, img: IMG) {
+      
    }
    
-
-
-}
-
-function drawCover() { 
-
 }
