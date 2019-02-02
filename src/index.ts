@@ -26,16 +26,16 @@ const imgSources = {
 };
 
 const liveImg = global.img = new LiveImg({
-   width: 400,
-   height: 250, 
-   pixelSize: 3,
+   width: 350,
+   height: 320, 
+   pixelSize: 2,
    pixelShape: 'circle',
 });
 
 container.appendChild(liveImg.root);
 
-setImg(imgSources.shark);
-
+setImg(imgSources.girl);
+ 
 (function initGui() {
    const config = {
       img: imgSources.shark,
