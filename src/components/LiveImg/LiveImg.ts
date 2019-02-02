@@ -260,7 +260,7 @@ export default class LiveImg {
       if (!this._img) return;
 
       const colors = this.getPixelColors();
-      let t = this.time / 100;
+      let t = this.time / 400;
       
       function get(index: number) { 
          return (Math.abs(index) ^ 0) % colors.length;
@@ -269,20 +269,20 @@ export default class LiveImg {
       const size = this._size.div(this._realPixelSize).ceil();
 
       this._pixels.forEach((pixel, i) => {
-         const x = (i % size.x) + size.x / 2;
-         const y = (i / size.x) + size.y / 2;
-         const k = y / x;
-         let index = i + Math.sin(t + y) * 1.2;
-         let index2 = i + Math.cos(t + y) * 1.5;
-         let index3 = i + Math.cos(t + y) * 1.5;
+         let x = i % size.x;
+         let y = (i / size.x) ^ 0;
+
+         x += Math.sin(t / 2 + y / 10) * 5;
+         y += (Math.sin(t + x / 10) * 4) ^ 0;
+         
+         const index = size.x * y + x;
 
          let r = colors[get(index)][0];
          let g = colors[get(index)][1];
          let b = colors[get(index)][2];
          let a = colors[get(index)][3] / 255;
 
-         pixel.color =
-            `rgba(${r},${g},${b},${a})`;
+         pixel.color = `rgba(${r},${g},${b},${a})`;
       });
 
    }
