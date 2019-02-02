@@ -34,7 +34,7 @@ export default class LiveImg {
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
     */
-   private _basePixelSize: number = 5;
+   private _basePixelSize: number = 10;
 
    /**
     * Реальный размер пикселей. Определяется таким образом, что бы 
@@ -130,15 +130,9 @@ export default class LiveImg {
    }
 
    private draw(frameTime: number, time: number): void {
-      const ctx = this.ctx;
-
       for (let i = this._pixels.length - 1; i >= 0; i--) {
          const pixel = this._pixels[i];
-         pixel.draw(ctx, frameTime, time);
-         /*ctx.fillRect(
-            pixel.coords.x, pixel.coords.y,
-            pixel.size, pixel.size
-         );*/
+         pixel.draw(this.ctx, frameTime, time);
       }
    }
 
@@ -401,14 +395,14 @@ export default class LiveImg {
       if (val > this._maxSize.x) val = this._maxSize.x;
       else if (val < this._minSize.x) val = this._minSize.x;
 
-      this._size.x = val;
+      this._size.x = val ^ 0;
    }
 
    private _setHeight(val: number): void {
       if (val > this._maxSize.y) val = this._maxSize.y;
       else if (val < this._minSize.y) val = this._minSize.y;
 
-      this._size.y = val;
+      this._size.y = val ^ 0;
    }
 
    /**

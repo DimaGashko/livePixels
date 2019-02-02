@@ -26,8 +26,8 @@ const imgSources = {
 };
 
 const liveImg = global.img = new LiveImg({
-   width: 365,
-   height: 400,
+   width: 400,
+   height: 250,
    pixelSize: 10,
    pixelShape: 'circle',
 });
@@ -43,7 +43,7 @@ setImg(imgSources.sea);
 
    const width = gui.add(liveImg, 'width', 5, window.innerWidth);
    const height = gui.add(liveImg, 'height', 5, window.innerHeight);
-   const pixelSize = gui.add(liveImg, 'pixelSize', 1, 30);
+   const pixelSize = gui.add(liveImg, 'pixelSize', 1, 20);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
    const images = gui.add(config, 'img', imgSources);
    const fillType = gui.add(liveImg, 'fillType', ['center', 'cover']);
