@@ -126,7 +126,7 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void {
-      this.useImg();
+      
    }
 
    private draw(frameTime: number, time: number): void {
@@ -254,7 +254,7 @@ export default class LiveImg {
     */
    private useImg(): void {
       if (!this._img) return;
-
+      console.log('asdf');
       const colors = this.getPixelColors();
       
       this._pixels.forEach((pixel, i) => {
@@ -274,20 +274,19 @@ export default class LiveImg {
     */
    private getPixelColors(): number[][] {
       const pixels = this.getImgPixels().data;
-      const size = this._realPixelSize;
+      const pixelSize = this._realPixelSize;
+      const w = this._size.x;
+      const h = this._size.y;
 
       const colors: number[][] = [];
 
-      for (let y = 0; y < this._size.y; y += size) {
-         for (let x = 0; x < this._size.x; x += size) {
-            const coords = new Vector(x, y).round();
-
-            // i = (w * y + x) * 4
-            const i = (this._size.x * coords.y + coords.x) * 4;
+      for (let y = 0; y < h; y += pixelSize) {
+         for (let x = 0; x < w; x += pixelSize) {
+            const i = (w * (y ^ 0) + (x ^ 0)) * 4;
 
             colors.push([
                pixels[i],
-               pixels[i + 1],
+               pixels[i + 1], 
                pixels[i + 2],
                pixels[i + 3],
             ]);
