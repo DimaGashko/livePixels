@@ -26,9 +26,9 @@ const imgSources = {
 };
 
 const liveImg = global.img = new LiveImg({
-   width: 300,
-   height: 200, 
-   pixelSize: 2,
+   width: 400,
+   height: 250, 
+   pixelSize: 3,
    pixelShape: 'circle',
 });
 
