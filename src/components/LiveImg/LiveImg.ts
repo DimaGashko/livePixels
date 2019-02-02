@@ -261,28 +261,38 @@ export default class LiveImg {
    private useImg(): void {
       if (!this._img) return;
 
-      this.getPixelColors();
+      const colors = this.getPixelColors();
+
+      console.log(colors);
    }
 
    /**
     * Возвращает массив цветов пикселей 
     * TODO: дописать комментарий 
     */
-   private getPixelColors(): number[] {
-      const imgPixels = this.getImgPixels();
+   private getPixelColors(): number[][] {
+      const pixels = this.getImgPixels().data;
       const size = this._realPixelSize;
 
-      // Количество пикселей по горизонтали / вертикали
-      const len = this._size.div(size).ceil();
+      const colors: number[][] = [];
 
-      console.log(len);
-      
-      for (let x = 0; x < len.x; x++) { 
+      for (let x = 0; x < this._size.x; x += size) { 
+         for (let y = 0; y < this._size.y; y += size) { 
+            const coords = new Vector(x, y).round();
 
+            // i = (w * y + x) * 4
+            const i = (this._size.x * coords.y + coords.x) * 4;
+
+            colors.push([
+               pixels[i],
+               pixels[i + 1],
+               pixels[i + 2],
+               pixels[i + 3],
+            ]);
+         }  
       }
 
-
-      return [];
+      return colors;
    }
 
    /**
