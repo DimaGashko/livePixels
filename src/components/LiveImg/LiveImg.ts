@@ -34,7 +34,7 @@ export default class LiveImg {
     * Приблизительный размер пикселей
     * (реальный размер должен быть максимально близким к нему) 
     */
-   private _basePixelSize: number = 10;
+   private _basePixelSize: number = 5;
 
    /**
     * Реальный размер пикселей. Определяется таким образом, что бы 
@@ -263,7 +263,16 @@ export default class LiveImg {
 
       const colors = this.getPixelColors();
 
-      console.log(colors);
+      this._pixels.forEach((pixel, i) => {
+         const r = colors[i][0];
+         const g = colors[i][1];
+         const b = colors[i][2];
+         const a = colors[i][3] / 255;
+
+         pixel.color = `rgba(${r},${g},${b},${a})`;
+      });
+
+      //console.log(colors);
    }
 
    /**
@@ -276,8 +285,8 @@ export default class LiveImg {
 
       const colors: number[][] = [];
 
-      for (let x = 0; x < this._size.x; x += size) { 
-         for (let y = 0; y < this._size.y; y += size) { 
+      for (let y = 0; y < this._size.y; y += size) {
+         for (let x = 0; x < this._size.x; x += size) {
             const coords = new Vector(x, y).round();
 
             // i = (w * y + x) * 4
@@ -289,7 +298,7 @@ export default class LiveImg {
                pixels[i + 2],
                pixels[i + 3],
             ]);
-         }  
+         }
       }
 
       return colors;
@@ -311,7 +320,7 @@ export default class LiveImg {
       ctx.fillStyle = bgColor
       ctx.fillRect(0, 0, this._size.x, this._size.y);
 
-      canvasImgFill(ctx, this._img, this._fillType);      
+      canvasImgFill(ctx, this._img, this._fillType);
 
       return ctx.getImageData(0, 0, this._size.x, this._size.y);
    }

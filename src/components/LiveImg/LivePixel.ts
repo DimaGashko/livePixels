@@ -44,10 +44,7 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 
-      const r = (Math.random() * 255) ^ 0;
-      const b = (Math.random() * 255) ^ 0;
-      const g = (Math.random() * 255) ^ 0;
-      ctx.fillStyle = `rgb(${r},${b},${g})`;//this.color;
+      ctx.fillStyle = this.color;
 
       let shape = this.shape;
 
