@@ -268,9 +268,19 @@ export default class LiveImg {
     * Возвращает массив цветов пикселей 
     * TODO: дописать комментарий 
     */
-   private getPixelColors(): string[] {
+   private getPixelColors(): number[] {
       const imgPixels = this.getImgPixels();
-      console.log(imgPixels);
+      const size = this._realPixelSize;
+
+      // Количество пикселей по горизонтали / вертикали
+      const len = this._size.div(size).ceil();
+
+      console.log(len);
+      
+      for (let x = 0; x < len.x; x++) { 
+
+      }
+
 
       return [];
    }
