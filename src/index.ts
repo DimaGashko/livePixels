@@ -28,21 +28,21 @@ const imgSources = {
 const liveImg = global.img = new LiveImg({
    width: 400,
    height: 250,
-   pixelSize: 10,
+   pixelSize: 2,
    pixelShape: 'circle',
 });
 
 container.appendChild(liveImg.root);
 
-setImg(imgSources.sea);
+setImg(imgSources.shark);
 
 (function initGui() {
    const config = {
-      img: imgSources.sea,
+      img: imgSources.shark,
    }
 
-   const width = gui.add(liveImg, 'width', 5, window.innerWidth);
-   const height = gui.add(liveImg, 'height', 5, window.innerHeight);
+   const width = gui.add(liveImg, 'width', 5, window.innerWidth, 1);
+   const height = gui.add(liveImg, 'height', 5, window.innerHeight, 1);
    const pixelSize = gui.add(liveImg, 'pixelSize', 1, 20);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
    const images = gui.add(config, 'img', imgSources);

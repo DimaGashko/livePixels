@@ -31,7 +31,7 @@ export default class LivePixel implements IGameObjectForGrid {
     */
    public speed: Vector = new Vector(0, 0);
 
-   public color: string = '#FB8C00';
+   public color: string = '#000';
 
    public shape: livePixelShape = 'circle';
 

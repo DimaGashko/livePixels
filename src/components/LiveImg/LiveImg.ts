@@ -81,6 +81,8 @@ export default class LiveImg {
 
    private _grid: GameGrid<LivePixel> = null;
 
+   private time = 0;
+
    constructor(config?: LiveImgConfig) {
       if (config) {
          this._useConfig(config);
@@ -113,6 +115,8 @@ export default class LiveImg {
          liveImg.update(frameTime, time);
          liveImg.draw(frameTime, time);
 
+         liveImg.time = time;
+
          prevTime = time;
          requestAnimationFrame(renderFunction);
       });
@@ -126,7 +130,7 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void {
-
+      this.useImg();
    }
 
    private draw(frameTime: number, time: number): void {
@@ -256,17 +260,23 @@ export default class LiveImg {
       if (!this._img) return;
 
       const colors = this.getPixelColors();
+      let t = this.time / 20000;
+      
+      function get(index: number) { 
+         return (Math.abs(index) ^ 0) % colors.length;
+      }
 
       this._pixels.forEach((pixel, i) => {
-         const r = colors[i][0];
-         const g = colors[i][1];
-         const b = colors[i][2];
-         const a = colors[i][3] / 255;
-
-         pixel.color = `rgba(${r},${g},${b},${a})`;
+         const index = i * Math.sin(t);
+         const r = colors[get(index)][0];
+         const g = colors[get(index)][1];
+         const b = colors[get(index)][2];
+         const a = colors[get(index)][3] / 255;
+         
+         pixel.color =
+            `rgba(${r},${g},${b},${a})`;
       });
 
-      //console.log(colors);
    }
 
    /**
