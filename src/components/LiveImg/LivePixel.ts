@@ -13,6 +13,8 @@ export default class LivePixel implements IGameObjectForGrid {
     */
    public coords: Vector = new Vector(0, 0);
 
+   private homeCoords: Vector = new Vector(0, 0);
+
    /**
     * Используется в глобальном update (при проверке взаимодействий, 
     * столкновений...), что бы не менять на прямую coords (так как изменение 
@@ -40,7 +42,13 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    public update(frameTime: number, time: number): void { 
-      
+      //this.speed = this.speed.add(new Vector(1, 2));
+
+      this.speed.x = Math.sin(time + Math.random() * 10);
+
+      this.coords = this.coords.add(this.speed);
+
+      this.speed = new Vector(0, 0);
    }
 
    public draw(ctx: CanvasRenderingContext2D, frameTime: number, time: number): void { 

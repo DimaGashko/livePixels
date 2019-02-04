@@ -34,7 +34,7 @@ const liveImg = global.img = new LiveImg({
 
 container.appendChild(liveImg.root);
 
-setImg(imgSources.girl);
+setImg(imgSources.shark);
  
 (function initGui() {
    const config = {

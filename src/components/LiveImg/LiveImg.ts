@@ -127,13 +127,14 @@ export default class LiveImg {
    }
 
    private update(frameTime: number, time: number): void {
-      
+      for (let i = this._pixels.length - 1; i >= 0; i--) {
+         this._pixels[i].update(frameTime, time);
+      }
    }
 
    private draw(frameTime: number, time: number): void {
       for (let i = this._pixels.length - 1; i >= 0; i--) {
-         const pixel = this._pixels[i];
-         pixel.draw(this.ctx, frameTime, time);
+         this._pixels[i].draw(this.ctx, frameTime, time);
       }
    }
 
