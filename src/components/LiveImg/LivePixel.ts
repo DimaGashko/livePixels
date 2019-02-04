@@ -1,7 +1,7 @@
 import Vector from "../Vector/Vector";
 import { IGameObjectForGrid } from "../GameGrid/GameGrid";
 
-export type livePixelShape = 'circle' | 'square';
+export type PixelShape = 'circle' | 'square';
 
 export default class LivePixel implements IGameObjectForGrid {
    public size: number = 5;
@@ -33,7 +33,7 @@ export default class LivePixel implements IGameObjectForGrid {
 
    public color: string = '#000';
 
-   public shape: livePixelShape = 'circle';
+   public shape: PixelShape = 'circle';
 
    constructor() { 
 

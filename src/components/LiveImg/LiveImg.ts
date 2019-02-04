@@ -1,19 +1,19 @@
 import Vector from '../Vector/Vector';
-import LivePixel, { livePixelShape } from './LivePixel';
+import LivePixel, { PixelShape } from './LivePixel';
 import GameGrid from '../GameGrid/GameGrid';
 import { getDivs_withCache } from '../../function/getDivs/getDivs';
+import canvasImgFill from '../../function/canvasImgFill';
 
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
-import canvasImgFill from '../../function/canvasImgFill';
 
-type FillType = 'center' | 'cover';
+export type FillType = 'center' | 'cover';
 
 export interface LiveImgConfig {
    width?: number,
    height?: number,
    pixelSize?: number,
-   pixelShape?: livePixelShape,
+   pixelShape?: PixelShape,
 }
 
 interface LiveImgElements {
@@ -46,10 +46,11 @@ export default class LiveImg {
    private _realPixelSize: number = null;
 
    /** В каких пределах может быть размер пикселей */
-   private _pixelSizeRange: Vector = new Vector(1, 250);
+   private _pixelSizeLimits: Vector = new Vector(1, 250);
 
-   private _pixelShape: livePixelShape = 'circle';
+   private _pixelShape: PixelShape = 'circle';
 
+   /** Пиксели картинки */
    private _pixels: LivePixel[] = [];
 
    /** Html-контейнер картинки */
@@ -94,7 +95,7 @@ export default class LiveImg {
    private init(): void {
       this._createHtml();
       this._getElements();
-      this._updateMetrics();
+      this._updateCanvasSize();
       this._getCtx();
    }
 
@@ -143,12 +144,6 @@ export default class LiveImg {
     */
    private create(): void {
       this._updateRealPixelSize();
-
-      console.log(
-         'Pixel size:', this._basePixelSize,
-         'real:', +this._realPixelSize.toFixed(2)
-      );
-
       this._createGrid();
       this._createPixels();
 
@@ -255,7 +250,7 @@ export default class LiveImg {
     */
    private useImg(): void {
       if (!this._img) return;
-      console.log('asdf');
+      
       const colors = this.getPixelColors();
       
       this._pixels.forEach((pixel, i) => {
@@ -271,7 +266,13 @@ export default class LiveImg {
 
    /**
     * Возвращает массив цветов пикселей 
-    * TODO: дописать комментарий 
+    * 
+    * Длина массива цветов равна количеству пикселей (длине this._pixels).
+    * Благодаря чему каждый цвет можно применить к пикселю в обычном цикле
+    * где i-тому пикселю присваивается i-тый цвет
+    * 
+    * Возвращает массив цветов. Цвет представляется в виде массива чисел вида:
+    * [r, g, b, a]. Каждая компонента цвета находится в интервале [0, 255]
     */
    private getPixelColors(): number[][] {
       const pixels = this.getImgPixels().data;
@@ -280,6 +281,8 @@ export default class LiveImg {
       const h = this._size.y;
 
       const colors: number[][] = [];
+
+      // Фактически берем только каждый pixelSize цвет, остальные не учитываются
 
       for (let y = 0; y < h; y += pixelSize) {
          for (let x = 0; x < w; x += pixelSize) {
@@ -300,7 +303,7 @@ export default class LiveImg {
    /**
     * Возвращает массив реальных пикселей картинки
     * возвращаются пиксели не this._img, а пиксели канваса, с 
-    * размерами this._size и нарисованной на нем this._img
+    * размерами this._size и нарисованной на нем (способом fillType) this._img 
     */
    private getImgPixels(): ImageData {
       const canvas = document.createElement('canvas');
@@ -310,7 +313,7 @@ export default class LiveImg {
       canvas.width = this._size.x;
       canvas.height = this._size.y;
 
-      ctx.fillStyle = bgColor
+      ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, this._size.x, this._size.y);
 
       canvasImgFill(ctx, this._img, this._fillType);
@@ -324,10 +327,6 @@ export default class LiveImg {
 
    private _clearCanvas(): void {
       this.ctx.clearRect(0, 0, this._size.x, this._size.y);
-   }
-
-   private _updateMetrics(): void {
-      this._updateCanvasSize();
    }
 
    private _updateCanvasSize(): void {
@@ -377,12 +376,12 @@ export default class LiveImg {
       if ('pixelShape' in config) this._setPixelShape(config.pixelShape);
    }
 
-   private _setPixelShape(shape: livePixelShape): void {
+   private _setPixelShape(shape: PixelShape): void {
       this._pixelShape = shape;
    }
 
    private _setPixelSize(size: number): void {
-      const range = this._pixelSizeRange;
+      const range = this._pixelSizeLimits;
 
       if (size < range.x) size = range.x;
       else if (size > range.y) size = range.y;
@@ -476,7 +475,7 @@ export default class LiveImg {
    /**
     * Устанавливает форму пикселя
     */
-   public set pixelShape(val: livePixelShape) {
+   public set pixelShape(val: PixelShape) {
       this._setPixelShape(val);
       this.updatePixelShape();
    }
