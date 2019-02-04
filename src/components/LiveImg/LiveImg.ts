@@ -481,6 +481,8 @@ export default class LiveImg {
     */
    public set fillType(val: FillType) {
       this._setFillType(val);
+
+      this.shufflePixels();
       this.useImg();
    }
 

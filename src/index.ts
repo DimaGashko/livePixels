@@ -28,7 +28,7 @@ const imgSources = {
 const liveImg = global.img = new LiveImg({
    width: 350,
    height: 320, 
-   pixelSize: 2,
+   pixelSize: 8,
    pixelShape: 'circle',
 });
 
