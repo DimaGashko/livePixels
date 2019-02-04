@@ -5,6 +5,7 @@
 
 # compiled output
 /dist
+/dist_tests
 /webpack-analyze
 
 # dependencies
