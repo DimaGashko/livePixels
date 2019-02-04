@@ -7,7 +7,7 @@ import canvasImgFill from '../../function/canvasImgFill';
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
 
-export type FillType = 'center' | 'cover';
+export type FillType = 'center' | 'cover'; 
 
 export interface LiveImgConfig {
    width?: number,
