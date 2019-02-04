@@ -197,7 +197,8 @@ export default class LiveImg {
     * Пересчитывает окончательные размеры (_realPixelSize) пикселей так, 
     * что бы они были максимально близкими к _basePixelSize и при этом, что бы 
     * пиксели можно было разместить на картинке без пропусков, 
-    * перекрытий и выходов за границы
+    * перекрытий и выходов за границы (если это возможно без сильного 
+    * отклонения от _basePixelSize)
     */
    private _updateRealPixelSize(): void {
       const base = this._basePixelSize;
