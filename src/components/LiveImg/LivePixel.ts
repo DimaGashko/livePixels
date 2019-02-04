@@ -13,7 +13,7 @@ export default class LivePixel implements IGameObjectForGrid {
     */
    public coords: Vector = new Vector(0, 0);
 
-   private homeCoords: Vector = new Vector(0, 0);
+   public homeCoords: Vector = new Vector(0, 0);
 
    /**
     * Используется в глобальном update (при проверке взаимодействий, 
@@ -42,9 +42,7 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    public update(frameTime: number, time: number): void { 
-      //this.speed = this.speed.add(new Vector(1, 2));
-
-      this.speed.x = Math.sin(time + Math.random() * 10);
+      this.stepHome();
 
       this.coords = this.coords.add(this.speed);
 
@@ -73,5 +71,11 @@ export default class LivePixel implements IGameObjectForGrid {
 
       // В этой функции нельзя использовать ctx.save() / ctx.restore();
       // Так как когда пикселей много эти функции в пару раз снижают fps
+   }
+
+   private stepHome(): void { 
+      const dir = this.homeCoords.sub(this.coords).div(3);
+
+      this.speed = this.speed.add(dir);
    }
 }

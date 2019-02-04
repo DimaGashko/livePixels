@@ -251,10 +251,17 @@ export default class LiveImg {
     */
    private useImg(): void {
       if (!this._img) return;
-      
+   
       const colors = this.getPixelColors();
+      const size = this._size.div(this._realPixelSize).ceil();
       
       this._pixels.forEach((pixel, i) => {
+         const x = i % size.x;
+         const y = (i / size.x) ^ 0;
+
+         pixel.homeCoords.x = x * this._realPixelSize;
+         pixel.homeCoords.y = y * this._realPixelSize;
+
          let r = colors[i][0];
          let g = colors[i][1];
          let b = colors[i][2];
@@ -444,7 +451,15 @@ export default class LiveImg {
     */
    public setImg(img: HTMLImageElement) {
       this._setImg(img);
+
+      this.shufflePixels();
       this.useImg();
+   }
+
+   private shufflePixels() { 
+      this._pixels.sort((a, b) => { 
+         return Math.random() - 0.5;
+      });
    }
 
    /**
