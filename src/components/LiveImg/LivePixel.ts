@@ -42,7 +42,9 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    public update(frameTime: number, time: number): void { 
-      this.stepHome();
+      const dir = this.homeCoords.sub(this.coords).div(10);
+
+      this.speed = this.speed.add(dir);
 
       this.coords = this.coords.add(this.speed);
 
@@ -73,9 +75,4 @@ export default class LivePixel implements IGameObjectForGrid {
       // Так как когда пикселей много эти функции в пару раз снижают fps
    }
 
-   private stepHome(): void { 
-      const dir = this.homeCoords.sub(this.coords).div(10);
-
-      this.speed = this.speed.add(dir);
-   }
 }

@@ -8,7 +8,7 @@ import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
 import perlinNoise from '../../functions/perlin-noise';
 
-export type FillType = 'center' | 'cover'; 
+export type FillType = 'center' | 'cover';
 
 export interface LiveImgConfig {
    width?: number,
@@ -85,6 +85,9 @@ export default class LiveImg {
    private readonly _MAX_FRAME_TIME: number = 60;
 
    private _grid: GameGrid<LivePixel> = null;
+
+   /** Тип перемешивания массива пикселей */
+   public shuffleType: 'random' | 'perlinNoise' = 'random';
 
    constructor(config?: LiveImgConfig) {
       if (config) {
@@ -256,10 +259,10 @@ export default class LiveImg {
     */
    private useImg(): void {
       if (!this._img) return;
-   
+
       const colors = this.getPixelColors();
       const size = this._size.div(this._realPixelSize).ceil();
-      
+
       this._pixels.forEach((pixel, i) => {
          const x = i % size.x;
          const y = (i / size.x) ^ 0;
@@ -303,7 +306,7 @@ export default class LiveImg {
 
             colors.push([
                pixels[i],
-               pixels[i + 1], 
+               pixels[i + 1],
                pixels[i + 2],
                pixels[i + 3],
             ]);
@@ -462,13 +465,19 @@ export default class LiveImg {
    }
 
    private shufflePixels() {
-      let i = this.time / 1000;
+      if (this.shuffleType === 'random') {
+         this._pixels.sort((a, b) => {
+            return Math.random() - 0.5;
+         });
 
-      this._pixels.sort((a, b) => { 
-         i += 0.0013;
-         //return Math.random() - 0.5;
-         return perlinNoise(i, 1 / i, 0) - 0.5;
-      });
+      } else {
+         let i = this.time / 1000;
+
+         this._pixels.sort((a, b) => {
+            i += 0.0013;
+            return perlinNoise(i, 1 / i, 0) - 0.5;
+         });
+      }
    }
 
    /**
