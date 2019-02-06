@@ -462,12 +462,12 @@ export default class LiveImg {
    }
 
    private shufflePixels() {
-      let t = this.time / 1000;
+      let i = this.time / 1000;
 
       this._pixels.sort((a, b) => { 
-         t += 0.0013;
+         i += 0.0013;
          //return Math.random() - 0.5;
-         return perlinNoise(t, t, t) - 0.5;
+         return perlinNoise(i, 1 / i, 0) - 0.5;
       });
    }
 
