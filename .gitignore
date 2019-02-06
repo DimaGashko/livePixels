@@ -1,7 +1,7 @@
 # name.~docx, name.~vsdx etc.
 /**/*.~*
 
-**/*.mp4
+modelling/developmentSnapshots/video/
 
 # compiled output
 /dist
