@@ -1,11 +1,12 @@
 import Vector from '../Vector/Vector';
 import LivePixel, { PixelShape } from './LivePixel';
 import GameGrid from '../GameGrid/GameGrid';
-import { getDivs_withCache } from '../../function/getDivs/getDivs';
-import canvasImgFill from '../../function/canvasImgFill';
+import { getDivs_withCache } from '../../functions/getDivs/getDivs';
+import canvasImgFill from '../../functions/canvasImgFill';
 
 import * as liveImgTemplate from './templates/LiveImg.pug';
 import './styles/LiveImg.sass'
+import perlinNoise from '../../functions/perlin-noise';
 
 export type FillType = 'center' | 'cover'; 
 
@@ -63,6 +64,9 @@ export default class LiveImg {
 
    private ctx: CanvasRenderingContext2D = null;
 
+   /** постоянно увеличивающаяся переменная */
+   private time: number = 0;
+
    /**
     * Id текущего requestAnimationFrame.
     * Используется для остановки рендера картинки.
@@ -102,19 +106,20 @@ export default class LiveImg {
    private startRender(): void {
       if (this._isRendering()) return;
       const liveImg = this;
-      let prevTime = -1;
+      let prevT = -1;
 
-      requestAnimationFrame(function renderFunction(time: number) {
-         let frameTime: number = (prevTime != -1) ?
-            time - prevTime : 16;
+      requestAnimationFrame(function renderFunction(t: number) {
+         let frameTime: number = (prevT != -1) ?
+            t - prevT : 16;
 
          frameTime = liveImg._correctFrameTime(frameTime);
+         prevT = t;
 
          liveImg._clearCanvas();
-         liveImg.update(frameTime, time);
-         liveImg.draw(frameTime, time);
+         liveImg.update(frameTime);
+         liveImg.draw(frameTime);
 
-         prevTime = time;
+         liveImg.time += 0.005;
          requestAnimationFrame(renderFunction);
       });
    }
@@ -126,15 +131,15 @@ export default class LiveImg {
       this._frameId = 0;
    }
 
-   private update(frameTime: number, time: number): void {
+   private update(frameTime: number): void {
       for (let i = this._pixels.length - 1; i >= 0; i--) {
-         this._pixels[i].update(frameTime, time);
+         this._pixels[i].update(frameTime, this.time);
       }
    }
 
-   private draw(frameTime: number, time: number): void {
+   private draw(frameTime: number): void {
       for (let i = this._pixels.length - 1; i >= 0; i--) {
-         this._pixels[i].draw(this.ctx, frameTime, time);
+         this._pixels[i].draw(this.ctx, frameTime, this.time);
       }
    }
 
@@ -456,9 +461,13 @@ export default class LiveImg {
       this.useImg();
    }
 
-   private shufflePixels() { 
+   private shufflePixels() {
+      let t = this.time / 1000;
+
       this._pixels.sort((a, b) => { 
-         return Math.random() - 0.5;
+         t += 0.0013;
+         //return Math.random() - 0.5;
+         return perlinNoise(t, t, t) - 0.5;
       });
    }
 

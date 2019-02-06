@@ -74,7 +74,7 @@ export default class LivePixel implements IGameObjectForGrid {
    }
 
    private stepHome(): void { 
-      const dir = this.homeCoords.sub(this.coords).div(5);
+      const dir = this.homeCoords.sub(this.coords).div(10);
 
       this.speed = this.speed.add(dir);
    }
