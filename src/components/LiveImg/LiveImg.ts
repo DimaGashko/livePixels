@@ -87,7 +87,7 @@ export default class LiveImg {
    private _grid: GameGrid<LivePixel> = null;
 
    /** Тип перемешивания массива пикселей */
-   public shuffleType: 'random' | 'perlinNoise' = 'random';
+   public shuffleType: 'random' | 'sin' = 'random';
 
    constructor(config?: LiveImgConfig) {
       if (config) {
@@ -470,12 +470,13 @@ export default class LiveImg {
             return Math.random() - 0.5;
          });
 
-      } else {
+      } else if (this.shuffleType === 'sin') {
          let i = this.time / 1000;
 
          this._pixels.sort((a, b) => {
             i += 0.0013;
-            return perlinNoise(i, 1 / i, 0) - 0.5;
+            //return perlinNoise(i, 1 / i, 0) - 0.5;
+            return Math.sin(i) - 0.5;
          });
       }
    }

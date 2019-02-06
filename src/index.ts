@@ -47,7 +47,7 @@ setImg(imgSources.shark);
    const pixelShape = gui.add(liveImg, 'pixelShape', ['circle', 'square']);
    const images = gui.add(config, 'img', imgSources);
    const fillType = gui.add(liveImg, 'fillType', ['center', 'cover']);
-   const shuffle = gui.add(liveImg, 'shuffleType', ['random', 'perlinNoise']);
+   const shuffle = gui.add(liveImg, 'shuffleType', ['random', 'sin']);
 
    window.addEventListener('resize', () => {
       width.max(window.innerWidth).updateDisplay();
